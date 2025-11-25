@@ -5,7 +5,7 @@ import Link from "next/link";
 export function Contact() {
   return (
     <section id="contact" className="px-4 py-12 sm:py-20">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-6xl">
         <div className="flex items-center justify-center gap-6 sm:gap-8">
           <Link
             href={`mailto:${personalInfo.email}`}

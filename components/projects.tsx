@@ -6,16 +6,15 @@ import Link from "next/link";
 import { ArrowRight, ExternalLink, FolderKanban } from "lucide-react";
 
 export function Projects() {
-  // Show only first 2 projects on main page
   const featuredProjects = projects.slice(0, 2);
   const previewSkillsCount = 4;
 
   return (
     <section id="projects" className="px-4 py-12 sm:py-20">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-6xl">
         <div className="mb-8 sm:mb-12">
-          <div className="mb-6">
-            <div className="flex items-baseline gap-4">
+          <div className="flex items-baseline justify-between gap-4">
+            <div className="flex items-baseline gap-4 flex-1">
               <div className="relative flex-shrink-0">
                 <div className="absolute inset-0 rounded-lg bg-primary/10 blur-sm" />
                 <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20">
@@ -27,9 +26,7 @@ export function Projects() {
                 <div className="mt-2 h-0.5 w-20 bg-gradient-to-r from-primary to-transparent rounded-full" />
               </div>
             </div>
-          </div>
-          <div className="flex items-center justify-end">
-            <Button variant="outline" asChild>
+            <Button variant="outline" asChild className="shrink-0">
               <Link href="/projects">
                 View All Projects
                 <ArrowRight className="ml-2 h-4 w-4" />

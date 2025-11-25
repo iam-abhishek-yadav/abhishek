@@ -5,7 +5,7 @@ import { GraduationCap } from "lucide-react";
 export function Education() {
   return (
     <section id="education" className="px-4 py-12 sm:py-20">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-6xl">
         <div className="mb-8 sm:mb-12">
           <div className="flex items-baseline gap-4">
             <div className="relative flex-shrink-0">

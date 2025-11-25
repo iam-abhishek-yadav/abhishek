@@ -1,3 +1,7 @@
+export const controlMetadata = {
+  "availableForOpportunities": false,
+}
+
 export const personalInfo = {
   name: "Abhishek Yadav",
   title: "Software Engineer",
@@ -10,6 +14,7 @@ export const summary = `Software Engineer with nearly 4 years of experience spec
 
 export const experience = [
   {
+    id: "virtual-employee-software-engineer",
     company: "Virtual Employee",
     position: "Software Engineer",
     location: "Noida",
@@ -23,6 +28,7 @@ export const experience = [
     ],
   },
   {
+    id: "smarsh-software-engineer",
     company: "Smarsh",
     position: "Software Engineer",
     location: "Bangalore",

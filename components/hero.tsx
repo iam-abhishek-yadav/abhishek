@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { personalInfo } from "@/lib/data";
+import { personalInfo, controlMetadata } from "@/lib/data";
 import { Mail, Linkedin, Github, Sparkles } from "lucide-react";
 import Link from "next/link";
 
@@ -9,11 +9,13 @@ export function Hero() {
       id="hero"
       className="flex min-h-screen flex-col items-center justify-center px-4 py-20 text-center"
     >
-      <div className="mx-auto max-w-4xl space-y-8 animate-fade-in">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card px-4 py-2 text-sm text-muted-foreground shadow-subtle mb-4">
-          <Sparkles className="h-3.5 w-3.5" />
-          <span>Available for opportunities</span>
-        </div>
+      <div className="mx-auto max-w-6xl space-y-8 animate-fade-in">
+        {controlMetadata.availableForOpportunities && (
+          <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card px-4 py-2 text-sm text-muted-foreground shadow-subtle mb-4">
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Available for opportunities</span>
+          </div>
+        )}
         <div className="space-y-4">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
             <span className="block">{personalInfo.name.split(" ")[0]}</span>

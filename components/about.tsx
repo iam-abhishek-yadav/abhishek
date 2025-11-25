@@ -1,11 +1,16 @@
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { summary } from "@/lib/data";
 import { User } from "lucide-react";
 
 export function About() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <section id="about" className="px-4 py-12 sm:py-20">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-6xl">
         <div className="mb-8 sm:mb-12">
           <div className="flex items-baseline gap-4">
             <div className="relative flex-shrink-0">
@@ -25,7 +30,17 @@ export function About() {
             <CardTitle className="text-lg sm:text-xl">Who I Am</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="leading-8 text-base text-muted-foreground sm:text-lg">{summary}</p>
+            <p
+              onClick={() => setIsExpanded(!isExpanded)}
+              className={`leading-8 text-base text-muted-foreground sm:text-lg cursor-pointer sm:cursor-default ${
+                !isExpanded ? "line-clamp-5 sm:line-clamp-none" : ""
+              }`}
+            >
+              {summary}
+              {!isExpanded && (
+                <span className="sm:hidden text-primary font-bold text-xl hover:text-primary/80 transition-colors inline-block ml-1">...</span>
+              )}
+            </p>
           </CardContent>
         </Card>
       </div>
