@@ -100,4 +100,88 @@
       max-width: 1280px;
     }
   }
+
+  /* Enhanced shadow utilities */
+  .shadow-subtle {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  .shadow-soft {
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.08), 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  }
+
+  .shadow-medium {
+    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 0.1), 0 2px 4px 0 rgb(0 0 0 / 0.06);
+  }
+
+  .shadow-strong {
+    box-shadow: 0 8px 24px 0 rgb(0 0 0 / 0.12), 0 4px 8px 0 rgb(0 0 0 / 0.08);
+  }
+
+  .dark .shadow-subtle {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  }
+
+  .dark .shadow-soft {
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.4), 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  }
+
+  .dark .shadow-medium {
+    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 0.5), 0 2px 4px 0 rgb(0 0 0 / 0.4);
+  }
+
+  .dark .shadow-strong {
+    box-shadow: 0 8px 24px 0 rgb(0 0 0 / 0.6), 0 4px 8px 0 rgb(0 0 0 / 0.5);
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Section divider */
+  .section-divider {
+    height: 1px;
+    background: hsl(var(--border));
+    margin: 4rem auto;
+    max-width: 8rem;
+    opacity: 0.5;
+  }
+
+  /* Enhanced spacing */
+  .section-spacing {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  @media (min-width: 640px) {
+    .section-spacing {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
 }

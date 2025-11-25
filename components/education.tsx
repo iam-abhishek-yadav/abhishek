@@ -1,22 +1,42 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { education } from "@/lib/data";
+import { GraduationCap } from "lucide-react";
 
 export function Education() {
   return (
     <section id="education" className="px-4 py-12 sm:py-20">
       <div className="mx-auto max-w-4xl">
-        <h2 className="mb-8 text-2xl font-bold sm:mb-12 sm:text-3xl">Education</h2>
-        <Card className="transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+        <div className="mb-8 sm:mb-12">
+          <div className="flex items-baseline gap-4">
+            <div className="relative flex-shrink-0">
+              <div className="absolute inset-0 rounded-lg bg-primary/10 blur-sm" />
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20">
+                <GraduationCap className="h-5 w-5 text-primary" />
+              </div>
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Education</h2>
+              <div className="mt-2 h-0.5 w-20 bg-gradient-to-r from-primary to-transparent rounded-full" />
+            </div>
+          </div>
+        </div>
+        <Card>
           <CardHeader>
-            <CardTitle className="text-lg sm:text-xl">{education.degree}</CardTitle>
-            <p className="text-sm text-muted-foreground sm:text-base">{education.institution}</p>
+            <div className="space-y-2">
+              <CardTitle className="text-lg sm:text-xl">{education.degree}</CardTitle>
+              <p className="text-base font-medium text-foreground sm:text-lg">{education.institution}</p>
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col gap-2 text-xs text-muted-foreground sm:flex-row sm:justify-between sm:text-sm">
-              <p>{education.location}</p>
-              <p>
-                {education.startDate} – {education.endDate}
-              </p>
+            <div className="flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:text-base">
+              <div className="flex items-center gap-2">
+                <span className="font-medium">{education.location}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-medium">
+                  {education.startDate} – {education.endDate}
+                </span>
+              </div>
             </div>
           </CardContent>
         </Card>
