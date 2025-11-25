@@ -14,14 +14,14 @@ export function Experience() {
           <div className="flex items-baseline justify-between gap-4">
             <div className="flex items-baseline gap-4 flex-1">
               <div className="relative flex-shrink-0">
-                <div className="absolute inset-0 rounded-lg bg-primary/10 blur-sm" />
-                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20">
-                  <Briefcase className="h-5 w-5 text-primary" />
+                <div className="absolute inset-0 rounded-lg bg-purple-500/20 blur-sm" />
+                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500/30 to-purple-400/10 border border-purple-500/30">
+                  <Briefcase className="h-5 w-5 text-purple-600 dark:text-purple-400" />
                 </div>
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Experience</h2>
-                <div className="mt-2 h-0.5 w-20 bg-gradient-to-r from-primary to-transparent rounded-full" />
+                <div className="mt-2 h-0.5 w-20 bg-gradient-to-r from-purple-500 to-transparent rounded-full" />
               </div>
             </div>
             <Button variant="outline" asChild className="shrink-0">
@@ -68,7 +68,7 @@ export function Experience() {
                 <ul className="mb-6 space-y-3">
                   {exp.description.slice(0, 2).map((item, i) => (
                     <li key={i} className="flex gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-500" />
                       <span className="text-sm leading-relaxed text-muted-foreground sm:text-base line-clamp-2">
                         {item}
                       </span>

@@ -6,12 +6,14 @@ import { usePathname } from "next/navigation";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { useEffect, useState } from "react";
 
-const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Education", href: "#education" },
+type NavColor = "blue" | "purple" | "emerald" | "orange" | "rose";
+
+const navItems: Array<{ label: string; href: string; color: NavColor }> = [
+  { label: "About", href: "#about", color: "blue" },
+  { label: "Experience", href: "#experience", color: "purple" },
+  { label: "Projects", href: "#projects", color: "emerald" },
+  { label: "Skills", href: "#skills", color: "orange" },
+  { label: "Education", href: "#education", color: "rose" },
 ];
 
 export function Nav() {
@@ -56,22 +58,39 @@ export function Nav() {
       <div className="container flex h-16 items-center justify-between px-4">
         <Link
           href={isHomePage ? "#hero" : "/#hero"}
-          className="text-base font-bold transition-all hover:text-primary hover:scale-105"
+          className="text-base font-bold text-purple-500 dark:text-purple-300 transition-all hover:scale-105 hover:text-blue-500 dark:hover:text-blue-300"
         >
           Abhishek Yadav
         </Link>
         <div className="flex items-center gap-1 sm:gap-2">
           {navItems.map((item) => {
             const isActive = activeSection === item.href;
+            const colorClasses = {
+              blue: isActive
+                ? "bg-blue-500/20 text-blue-700 dark:text-blue-300 border-blue-500/30"
+                : "hover:bg-blue-500/10 hover:text-blue-600 dark:hover:text-blue-400",
+              purple: isActive
+                ? "bg-purple-500/20 text-purple-700 dark:text-purple-300 border-purple-500/30"
+                : "hover:bg-purple-500/10 hover:text-purple-600 dark:hover:text-purple-400",
+              emerald: isActive
+                ? "bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
+                : "hover:bg-emerald-500/10 hover:text-emerald-600 dark:hover:text-emerald-400",
+              orange: isActive
+                ? "bg-orange-500/20 text-orange-700 dark:text-orange-300 border-orange-500/30"
+                : "hover:bg-orange-500/10 hover:text-orange-600 dark:hover:text-orange-400",
+              rose: isActive
+                ? "bg-rose-500/20 text-rose-700 dark:text-rose-300 border-rose-500/30"
+                : "hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400",
+            };
             return (
               <Button
                 key={item.href}
                 variant="ghost"
                 asChild
-                className={`hidden text-xs transition-all sm:flex sm:text-sm ${
+                className={`hidden text-xs transition-all sm:flex sm:text-sm border ${
                   isActive
-                    ? "bg-accent text-accent-foreground font-medium shadow-subtle"
-                    : "hover:bg-accent/50"
+                    ? `${colorClasses[item.color]} font-medium shadow-subtle`
+                    : colorClasses[item.color]
                 }`}
               >
                 <Link href={isHomePage ? item.href : `/${item.href}`}>
