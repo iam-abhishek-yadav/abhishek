@@ -13,15 +13,14 @@ export function About() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 sm:mb-12">
           <div className="flex items-baseline gap-4">
-              <div className="relative flex-shrink-0">
-                <div className="absolute inset-0 rounded-lg bg-blue-500/20 blur-sm" />
-                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500/30 to-blue-400/10 border border-blue-500/30">
-                  <User className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+              <div className="relative shrink-0">
+                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 bg-muted/40 shadow-subtle">
+                  <User className="h-5 w-5 text-foreground" />
                 </div>
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">About</h2>
-                <div className="mt-2 h-0.5 w-20 bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
+                <div className="mt-2 h-0.5 w-20 rounded-full bg-border/70" />
             </div>
           </div>
         </div>
@@ -38,7 +37,9 @@ export function About() {
             >
               {summary}
               {!isExpanded && (
-                <span className="sm:hidden text-blue-600 dark:text-blue-400 font-bold text-xl hover:text-blue-500 dark:hover:text-blue-300 transition-colors inline-block ml-1">...</span>
+                <span className="ml-1 inline-block text-xl font-bold text-foreground/70 transition-colors hover:text-foreground sm:hidden">
+                  ...
+                </span>
               )}
             </p>
           </CardContent>

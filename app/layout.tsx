@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Abhishek Yadav - Software Engineer",
-  description: "Software Engineer with nearly 4 years of experience specializing in modern web development using React, Next.js, Node.js, and TypeScript.",
+  description:
+    "Senior Software Engineer with 4+ years of experience designing and scaling distributed SaaS systems across frontend and backend.",
 };
 
 export default function RootLayout({
@@ -30,8 +31,9 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem={false}
+          forcedTheme="dark"
           disableTransitionOnChange
         >
           {children}

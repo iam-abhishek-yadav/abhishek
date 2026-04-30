@@ -15,15 +15,14 @@ export function Projects() {
         <div className="mb-8 sm:mb-12">
           <div className="flex items-baseline justify-between gap-4">
             <div className="flex items-baseline gap-4 flex-1">
-              <div className="relative flex-shrink-0">
-                <div className="absolute inset-0 rounded-lg bg-emerald-500/20 blur-sm" />
-                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500/30 to-emerald-400/10 border border-emerald-500/30">
-                  <FolderKanban className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              <div className="relative shrink-0">
+                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 bg-muted/40 shadow-subtle">
+                  <FolderKanban className="h-5 w-5 text-foreground" />
                 </div>
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Projects</h2>
-                <div className="mt-2 h-0.5 w-20 bg-gradient-to-r from-emerald-500 to-transparent rounded-full" />
+                <div className="mt-2 h-0.5 w-20 rounded-full bg-border/70" />
               </div>
             </div>
             <Button variant="outline" asChild className="shrink-0">
@@ -81,7 +80,7 @@ export function Projects() {
                   <ul className="mb-6 space-y-3">
                     {project.description.slice(0, 2).map((item, i) => (
                       <li key={i} className="flex gap-3">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/60" />
                         <span className="text-sm leading-relaxed text-muted-foreground sm:text-base line-clamp-2">
                           {item}
                         </span>

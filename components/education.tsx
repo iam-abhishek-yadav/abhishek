@@ -8,15 +8,14 @@ export function Education() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 sm:mb-12">
           <div className="flex items-baseline gap-4">
-              <div className="relative flex-shrink-0">
-                <div className="absolute inset-0 rounded-lg bg-rose-500/20 blur-sm" />
-                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-rose-500/30 to-rose-400/10 border border-rose-500/30">
-                  <GraduationCap className="h-5 w-5 text-rose-600 dark:text-rose-400" />
+              <div className="relative shrink-0">
+                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 bg-muted/40 shadow-subtle">
+                  <GraduationCap className="h-5 w-5 text-foreground" />
                 </div>
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Education</h2>
-                <div className="mt-2 h-0.5 w-20 bg-gradient-to-r from-rose-500 to-transparent rounded-full" />
+                <div className="mt-2 h-0.5 w-20 rounded-full bg-border/70" />
             </div>
           </div>
         </div>
