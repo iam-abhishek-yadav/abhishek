@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -23,6 +23,12 @@ export const metadata: Metadata = {
   title: "Abhishek Yadav - Senior Software Engineer",
   description:
     "Senior Software Engineer with 4+ years of experience, including a founding-engineer role at a YC-backed AI observability startup building session replay, QA automation, and multi-LLM platforms.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

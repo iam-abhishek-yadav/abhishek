@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export function Experience() {
   return (
-    <section id="experience" className="px-4 py-20 sm:py-28">
+    <section id="experience" className="px-4 py-14 sm:py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeader
           eyebrow="Experience"
@@ -18,24 +18,26 @@ export function Experience() {
             <Link
               key={exp.id}
               href={`/experience/${exp.id}`}
-              className="group grid gap-4 py-8 transition-colors sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:gap-8 sm:py-10"
+              className="group flex items-start justify-between gap-3 py-6 transition-colors sm:grid sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:gap-8 sm:py-10"
             >
-              <p className="font-mono text-sm tabular-nums text-muted-foreground">
-                {exp.startDate} - {exp.endDate}
-              </p>
-
-              <div className="min-w-0 space-y-1">
-                <h3 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
-                  {exp.position}
-                </h3>
-                <p className="text-sm text-muted-foreground sm:text-base">
-                  {exp.company}
-                  <span className="mx-2 text-border">·</span>
-                  {exp.location}
+              <div className="min-w-0 flex-1 space-y-2 sm:contents">
+                <p className="font-mono text-xs tabular-nums text-muted-foreground sm:text-sm">
+                  {exp.startDate} - {exp.endDate}
                 </p>
+
+                <div className="min-w-0 space-y-1">
+                  <h3 className="font-display text-lg font-semibold tracking-tight sm:text-2xl">
+                    {exp.position}
+                  </h3>
+                  <p className="text-sm text-muted-foreground sm:text-base">
+                    <span className="break-words">{exp.company}</span>
+                    <span className="mx-2 text-border">·</span>
+                    {exp.location}
+                  </p>
+                </div>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors group-hover:text-foreground sm:justify-self-end">
+              <div className="flex shrink-0 items-center gap-2 pt-1 text-sm text-muted-foreground transition-colors group-hover:text-foreground sm:justify-self-end sm:pt-0">
                 <span className="hidden sm:inline">Details</span>
                 <ArrowUpRight
                   className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
