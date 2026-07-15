@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SectionHeader } from "@/components/section-header";
 import { skills } from "@/lib/data";
 import {
   Code2,
@@ -14,99 +15,47 @@ import {
 } from "lucide-react";
 
 const skillCategories = [
-  {
-    title: "Languages",
-    skills: skills.languages,
-    icon: Code2,
-    variant: "secondary" as const,
-  },
-  {
-    title: "Frontend",
-    skills: skills.frontend,
-    icon: Layout,
-    variant: "secondary" as const,
-  },
-  {
-    title: "Backend",
-    skills: skills.backend,
-    icon: Server,
-    variant: "secondary" as const,
-  },
-  {
-    title: "Data & Queues",
-    skills: skills.database,
-    icon: Database,
-    variant: "secondary" as const,
-  },
-  {
-    title: "AI & LLMs",
-    skills: skills.ai,
-    icon: Sparkles,
-    variant: "secondary" as const,
-  },
-  {
-    title: "Browser & Testing",
-    skills: skills.testing,
-    icon: TestTube,
-    variant: "secondary" as const,
-  },
-  {
-    title: "DevOps & Cloud",
-    skills: skills.devops,
-    icon: Cloud,
-    variant: "secondary" as const,
-  },
-  {
-    title: "Observability",
-    skills: skills.observability,
-    icon: Activity,
-    variant: "secondary" as const,
-  },
-  {
-    title: "Integrations",
-    skills: skills.integrations,
-    icon: Plug,
-    variant: "secondary" as const,
-  },
+  { title: "Languages", skills: skills.languages, icon: Code2 },
+  { title: "Frontend", skills: skills.frontend, icon: Layout },
+  { title: "Backend", skills: skills.backend, icon: Server },
+  { title: "Data & Queues", skills: skills.database, icon: Database },
+  { title: "AI & LLMs", skills: skills.ai, icon: Sparkles },
+  { title: "Browser & Testing", skills: skills.testing, icon: TestTube },
+  { title: "DevOps & Cloud", skills: skills.devops, icon: Cloud },
+  { title: "Observability", skills: skills.observability, icon: Activity },
+  { title: "Integrations", skills: skills.integrations, icon: Plug },
 ];
 
 export function Skills() {
   return (
-    <section id="skills" className="px-4 py-12 sm:py-20">
+    <section id="skills" className="px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8 sm:mb-12">
-          <div className="flex items-baseline gap-4">
-              <div className="relative shrink-0">
-                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 bg-muted/40 shadow-subtle">
-                  <Code2 className="h-5 w-5 text-foreground" />
-                </div>
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Technical Skills</h2>
-                <div className="mt-2 h-0.5 w-20 rounded-full bg-border/70" />
-            </div>
-          </div>
-        </div>
-        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <SectionHeader title="Technical Skills" index="04" />
+        <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category) => {
             const Icon = category.icon;
             return (
-              <Card key={category.title} className="group transition-all duration-300 hover:shadow-medium hover:-translate-y-0.5">
-                <CardHeader>
+              <Card
+                key={category.title}
+                className="group border-border/70 bg-card/60 hover:border-foreground/25"
+              >
+                <CardHeader className="pb-2">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-muted/40 shadow-subtle group-hover:shadow-soft transition-shadow">
-                      <Icon className="h-4 w-4 text-foreground" />
+                    <div className="flex h-8 w-8 items-center justify-center rounded-md border border-border/70 bg-background/50 transition-colors group-hover:border-foreground/30">
+                      <Icon className="h-3.5 w-3.5 text-foreground" strokeWidth={1.5} />
                     </div>
-                    <CardTitle className="text-base sm:text-lg">{category.title}</CardTitle>
+                    <CardTitle className="font-display text-base font-semibold tracking-tight sm:text-lg">
+                      {category.title}
+                    </CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
                     {category.skills.map((skill) => (
-                      <Badge 
-                        key={skill} 
-                        variant={category.variant} 
-                        className="text-xs font-medium transition-all group-hover:shadow-subtle border border-border/60 bg-card px-3 py-1.5 rounded-md hover:border-border hover:bg-accent/50"
+                      <Badge
+                        key={skill}
+                        variant="outline"
+                        className="rounded-md border-border/70 bg-background/30 px-2.5 py-1 text-xs font-normal text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
                       >
                         {skill}
                       </Badge>

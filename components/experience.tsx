@@ -1,88 +1,70 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { SectionHeader } from "@/components/section-header";
 import { experience } from "@/lib/data";
 import Link from "next/link";
-import { ArrowRight, ExternalLink, Briefcase } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 export function Experience() {
-  const featuredExperiences = experience.slice(0, 2);
-
   return (
-    <section id="experience" className="px-4 py-12 sm:py-20">
+    <section id="experience" className="px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8 sm:mb-12">
-          <div className="flex items-baseline justify-between gap-4">
-            <div className="flex items-baseline gap-4 flex-1">
-              <div className="relative shrink-0">
-                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 bg-muted/40 shadow-subtle">
-                  <Briefcase className="h-5 w-5 text-foreground" />
-                </div>
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Experience</h2>
-                <div className="mt-2 h-0.5 w-20 rounded-full bg-border/70" />
-              </div>
-            </div>
-            <Button variant="outline" asChild className="shrink-0">
-              <Link href="/experience">
-                View All Experience
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
-          {featuredExperiences.map((exp) => (
+        <SectionHeader title="Experience" index="02" />
+        <div className="grid gap-5 md:grid-cols-2">
+          {experience.map((exp) => (
             <Card
               key={exp.id}
-              className="group transition-all duration-300 hover:shadow-strong hover:-translate-y-1"
+              className="group border-border/70 bg-card/60 hover:border-foreground/25"
             >
               <CardHeader>
                 <div className="flex items-start justify-between gap-3">
-                  <div className="space-y-1 flex-1">
-                    <CardTitle className="text-lg sm:text-xl group-hover:text-foreground transition-colors">
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <CardTitle className="font-display text-lg font-semibold tracking-tight sm:text-xl">
                       {exp.position}
                     </CardTitle>
-                    <p className="text-base font-medium text-foreground sm:text-lg">{exp.company}</p>
+                    <p className="text-sm font-medium text-muted-foreground sm:text-base">
+                      {exp.company}
+                    </p>
                   </div>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    asChild 
-                    className="h-9 w-9 shrink-0 transition-all hover:scale-110 hover:bg-accent"
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    className="h-9 w-9 shrink-0 rounded-full opacity-60 transition-all hover:opacity-100 group-hover:bg-muted"
                   >
                     <Link href={`/experience/${exp.id}`}>
-                      <ExternalLink className="h-4 w-4 transition-transform group-hover:rotate-12" />
+                      <ExternalLink className="h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
-                <div className="mt-4 flex flex-col gap-1 text-sm text-muted-foreground">
-                  <p className="font-medium">{exp.location}</p>
-                  <p className="text-xs sm:text-sm">
+                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <span>{exp.location}</span>
+                  <span className="text-border">/</span>
+                  <span>
                     {exp.startDate} – {exp.endDate}
-                  </p>
+                  </span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="mb-6 space-y-3">
                   {exp.description.slice(0, 2).map((item, i) => (
                     <li key={i} className="flex gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/60" />
-                      <span className="text-sm leading-relaxed text-muted-foreground sm:text-base line-clamp-2">
+                      <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-foreground/50" />
+                      <span className="line-clamp-2 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
                         {item}
                       </span>
                     </li>
                   ))}
                 </ul>
-                <Button 
-                  variant="outline" 
-                  size="default" 
-                  asChild 
-                  className="w-full group/btn transition-all hover:shadow-soft"
+                <Button
+                  variant="outline"
+                  size="default"
+                  asChild
+                  className="w-full rounded-full border-border/80 group/btn hover:bg-foreground hover:text-background"
                 >
                   <Link href={`/experience/${exp.id}`}>
-                    View Details
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                    View details
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-0.5" />
                   </Link>
                 </Button>
               </CardContent>
@@ -93,4 +75,3 @@ export function Experience() {
     </section>
   );
 }
-

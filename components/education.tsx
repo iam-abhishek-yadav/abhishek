@@ -1,41 +1,32 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SectionHeader } from "@/components/section-header";
 import { education } from "@/lib/data";
 import { GraduationCap } from "lucide-react";
 
 export function Education() {
   return (
-    <section id="education" className="px-4 py-12 sm:py-20">
+    <section id="education" className="px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8 sm:mb-12">
-          <div className="flex items-baseline gap-4">
-              <div className="relative shrink-0">
-                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 bg-muted/40 shadow-subtle">
-                  <GraduationCap className="h-5 w-5 text-foreground" />
-                </div>
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Education</h2>
-                <div className="mt-2 h-0.5 w-20 rounded-full bg-border/70" />
-            </div>
-          </div>
-        </div>
-        <Card>
+        <SectionHeader title="Education" index="05" />
+        <Card className="border-border/70 bg-card/60">
           <CardHeader>
-            <div className="space-y-2">
-              <CardTitle className="text-lg sm:text-xl">{education.degree}</CardTitle>
-              <p className="text-base font-medium text-foreground sm:text-lg">{education.institution}</p>
+            <div className="space-y-3">
+              <CardTitle className="flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight sm:text-xl">
+                <GraduationCap className="h-5 w-5 shrink-0 text-foreground" strokeWidth={1.5} />
+                <span>{education.degree}</span>
+              </CardTitle>
+              <p className="text-base text-muted-foreground sm:text-lg">
+                {education.institution}
+              </p>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:text-base">
-              <div className="flex items-center gap-2">
-                <span className="font-medium">{education.location}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="font-medium">
-                  {education.startDate} – {education.endDate}
-                </span>
-              </div>
+            <div className="flex flex-col gap-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground sm:flex-row sm:items-center sm:gap-3">
+              <span>{education.location}</span>
+              <span className="hidden text-border sm:inline">/</span>
+              <span>
+                {education.startDate} – {education.endDate}
+              </span>
             </div>
           </CardContent>
         </Card>
@@ -43,4 +34,3 @@ export function Education() {
     </section>
   );
 }
-

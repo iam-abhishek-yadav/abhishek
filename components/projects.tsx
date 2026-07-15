@@ -1,61 +1,41 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SectionHeader } from "@/components/section-header";
 import { projects } from "@/lib/data";
 import Link from "next/link";
-import { ArrowRight, ExternalLink, FolderKanban } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 export function Projects() {
-  const featuredProjects = projects.slice(0, 2);
   const previewSkillsCount = 4;
 
   return (
-    <section id="projects" className="px-4 py-12 sm:py-20">
+    <section id="projects" className="px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8 sm:mb-12">
-          <div className="flex items-baseline justify-between gap-4">
-            <div className="flex items-baseline gap-4 flex-1">
-              <div className="relative shrink-0">
-                <div className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 bg-muted/40 shadow-subtle">
-                  <FolderKanban className="h-5 w-5 text-foreground" />
-                </div>
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Projects</h2>
-                <div className="mt-2 h-0.5 w-20 rounded-full bg-border/70" />
-              </div>
-            </div>
-            <Button variant="outline" asChild className="shrink-0">
-              <Link href="/projects">
-                View All Projects
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
-          {featuredProjects.map((project) => {
+        <SectionHeader title="Projects" index="03" />
+        <div className="grid gap-5 md:grid-cols-2">
+          {projects.map((project) => {
             const previewSkills = project.technologies.slice(0, previewSkillsCount);
             const remainingSkills = project.technologies.length - previewSkillsCount;
 
             return (
               <Card
                 key={project.id}
-                className="group transition-all duration-300 hover:shadow-strong hover:-translate-y-1"
+                className="group border-border/70 bg-card/60 hover:border-foreground/25"
               >
                 <CardHeader>
                   <div className="flex items-start justify-between gap-3">
-                    <CardTitle className="text-lg sm:text-xl group-hover:text-foreground transition-colors">
+                    <CardTitle className="font-display text-lg font-semibold tracking-tight sm:text-xl">
                       {project.name}
                     </CardTitle>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      asChild 
-                      className="h-9 w-9 shrink-0 transition-all hover:scale-110 hover:bg-accent"
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      asChild
+                      className="h-9 w-9 shrink-0 rounded-full opacity-60 transition-all hover:opacity-100 group-hover:bg-muted"
                     >
                       <Link href={`/projects/${project.id}`}>
-                        <ExternalLink className="h-4 w-4 transition-transform group-hover:rotate-12" />
+                        <ExternalLink className="h-4 w-4" />
                       </Link>
                     </Button>
                   </div>
@@ -63,15 +43,18 @@ export function Projects() {
                     {previewSkills.map((tech) => (
                       <Badge
                         key={tech}
-                        variant="secondary"
-                        className="text-xs font-medium transition-all group-hover:bg-secondary/90 group-hover:shadow-subtle"
+                        variant="outline"
+                        className="rounded-md border-border/70 bg-background/40 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground"
                       >
                         {tech}
                       </Badge>
                     ))}
                     {remainingSkills > 0 && (
-                      <Badge variant="outline" className="text-xs font-medium">
-                        +{remainingSkills} more
+                      <Badge
+                        variant="outline"
+                        className="rounded-md border-border/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground/70"
+                      >
+                        +{remainingSkills}
                       </Badge>
                     )}
                   </div>
@@ -80,22 +63,22 @@ export function Projects() {
                   <ul className="mb-6 space-y-3">
                     {project.description.slice(0, 2).map((item, i) => (
                       <li key={i} className="flex gap-3">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/60" />
-                        <span className="text-sm leading-relaxed text-muted-foreground sm:text-base line-clamp-2">
+                        <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-foreground/50" />
+                        <span className="line-clamp-2 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
                           {item}
                         </span>
                       </li>
                     ))}
                   </ul>
-                  <Button 
-                    variant="outline" 
-                    size="default" 
-                    asChild 
-                    className="w-full group/btn transition-all hover:shadow-soft"
+                  <Button
+                    variant="outline"
+                    size="default"
+                    asChild
+                    className="w-full rounded-full border-border/80 group/btn hover:bg-foreground hover:text-background"
                   >
                     <Link href={`/projects/${project.id}`}>
-                      View Details
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                      View details
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-0.5" />
                     </Link>
                   </Button>
                 </CardContent>
@@ -107,4 +90,3 @@ export function Projects() {
     </section>
   );
 }
-

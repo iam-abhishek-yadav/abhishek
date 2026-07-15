@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/lib/data";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -28,28 +28,40 @@ export default async function ProjectDetailPage({
   return (
     <div className="min-h-screen">
       <Nav />
-      <div className="container mx-auto px-4 py-12 sm:py-20">
-        <div className="mb-8">
-          <Button variant="outline" asChild className="mb-6">
-            <Link href="/projects">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Projects
-            </Link>
-          </Button>
-          <h1 className="mb-4 text-3xl font-bold sm:text-4xl">{project.name}</h1>
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:py-20">
+        <Button
+          variant="outline"
+          asChild
+          className="mb-8 rounded-full border-border/80 hover:bg-foreground hover:text-background"
+        >
+          <Link href="/#projects">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back
+          </Link>
+        </Button>
+
+        <div className="mb-10 space-y-3">
+          <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            {project.name}
+          </h1>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-3">
+        <div className="grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <Card className="transition-all duration-300 hover:shadow-xl">
+            <Card className="border-border/70 bg-card/60">
               <CardHeader>
-                <CardTitle className="text-xl sm:text-2xl">Project Overview</CardTitle>
+                <CardTitle className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
+                  Project Overview
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="list-disc space-y-3 pl-6">
+                <ul className="space-y-4">
                   {project.description.map((item, i) => (
-                    <li key={i} className="text-sm leading-7 text-muted-foreground sm:text-base">
-                      {item}
+                    <li key={i} className="flex gap-3">
+                      <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-foreground/50" />
+                      <span className="text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
+                        {item}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -58,25 +70,31 @@ export default async function ProjectDetailPage({
           </div>
 
           <div>
-            <Card className="sticky top-24 transition-all duration-300 hover:shadow-xl">
+            <Card className="sticky top-28 border-border/70 bg-card/60">
               <CardHeader>
-                <CardTitle className="text-lg sm:text-xl">Technologies Used</CardTitle>
+                <CardTitle className="font-display text-lg font-semibold tracking-tight sm:text-xl">
+                  Technologies
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech) => (
                     <Badge
                       key={tech}
-                      variant="secondary"
-                      className="text-xs transition-all hover:bg-secondary/80 hover:scale-105"
+                      variant="outline"
+                      className="rounded-md border-border/70 bg-background/40 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground"
                     >
                       {tech}
                     </Badge>
                   ))}
                 </div>
-                <div className="mt-6 pt-6 border-t">
-                  <p className="mb-2 text-sm font-medium">Total Technologies</p>
-                  <p className="text-2xl font-bold">{project.technologies.length}</p>
+                <div className="mt-6 border-t border-border/60 pt-6">
+                  <p className="mb-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                    Total
+                  </p>
+                  <p className="font-display text-3xl font-semibold tabular-nums">
+                    {project.technologies.length}
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -86,4 +104,3 @@ export default async function ProjectDetailPage({
     </div>
   );
 }
-
