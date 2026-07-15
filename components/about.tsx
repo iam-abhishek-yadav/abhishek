@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SectionHeader } from "@/components/section-header";
+import { Reveal } from "@/components/reveal";
 import { summary, education, skills } from "@/lib/data";
 import { GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,14 +23,16 @@ export function About() {
   return (
     <section id="about" className="px-4 py-14 sm:py-28">
       <div className="mx-auto max-w-6xl">
-        <SectionHeader
-          eyebrow="About"
-          title="A bit of context"
-          description="Founding engineer energy: ship the platform, own the architecture, talk directly with founders."
-        />
+        <Reveal>
+          <SectionHeader
+            eyebrow="About"
+            title="A bit of context"
+            description="Founding engineer energy: ship the platform, own the architecture, talk directly with founders."
+          />
+        </Reveal>
 
         <div className="grid gap-10 lg:grid-cols-[1.4fr_0.6fr] lg:gap-16">
-          <div className="space-y-6 sm:space-y-8">
+          <Reveal delay={80} className="space-y-6 sm:space-y-8">
             <div>
               <p
                 className={`text-sm leading-7 text-muted-foreground sm:text-lg sm:leading-9 ${
@@ -52,13 +55,18 @@ export function About() {
               <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground sm:mb-4 sm:text-[11px]">
                 Toolkit
               </p>
-              <p className="text-sm leading-7 text-muted-foreground break-words sm:text-base sm:leading-8">
+              <p className="break-words text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
                 {featuredSkills.join(" · ")}
               </p>
             </div>
-          </div>
+          </Reveal>
 
-          <aside className="space-y-4 border-t border-border/60 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-1 sm:space-y-6 sm:pt-8">
+          <Reveal
+            delay={160}
+            variant="left"
+            className="space-y-4 border-t border-border/60 pt-6 sm:space-y-6 sm:pt-8 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-1"
+            as="aside"
+          >
             <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground sm:text-[11px]">
               Education
             </p>
@@ -79,7 +87,7 @@ export function About() {
                 </p>
               </div>
             </div>
-          </aside>
+          </Reveal>
         </div>
       </div>
     </section>

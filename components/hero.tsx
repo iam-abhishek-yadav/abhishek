@@ -58,7 +58,7 @@ export function Hero() {
 
           <div
             className="flex flex-col gap-5 border-t border-border/60 pt-6 animate-fade-up lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0"
-            style={{ animationDelay: "120ms" }}
+            style={{ animationDelay: "140ms" }}
           >
             <p className="text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
               Founding engineer at a YC-backed AI observability startup. Full-stack -
