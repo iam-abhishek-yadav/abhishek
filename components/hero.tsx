@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { personalInfo, controlMetadata } from "@/lib/data";
-import { Mail, Linkedin, Github, Sparkles } from "lucide-react";
+import { Mail, Linkedin, Github, Phone, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export function Hero() {
@@ -38,6 +38,17 @@ export function Hero() {
             <Link href={`mailto:${personalInfo.email}`}>
               <Mail className="mr-2 h-4 w-4 text-muted-foreground transition-all group-hover:scale-110 group-hover:text-foreground" />
               <span>Email</span>
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            asChild
+            size="lg"
+            className="group transition-all hover:scale-105 hover:shadow-soft hover:bg-muted/50"
+          >
+            <Link href={`tel:${personalInfo.phone.replace(/\s/g, "")}`}>
+              <Phone className="mr-2 h-4 w-4 text-muted-foreground transition-all group-hover:scale-110 group-hover:text-foreground" />
+              <span>Phone</span>
             </Link>
           </Button>
           <Button

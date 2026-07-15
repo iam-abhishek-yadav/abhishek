@@ -1,5 +1,5 @@
 import { personalInfo } from "@/lib/data";
-import { Mail, Linkedin, Github } from "lucide-react";
+import { Mail, Linkedin, Github, Phone } from "lucide-react";
 import Link from "next/link";
 
 export function Contact() {
@@ -13,6 +13,13 @@ export function Contact() {
             aria-label="Email"
           >
             <Mail className="h-5 w-5 text-muted-foreground transition-all group-hover:scale-110 group-hover:text-foreground" />
+          </Link>
+          <Link
+            href={`tel:${personalInfo.phone.replace(/\s/g, "")}`}
+            className="group flex h-12 w-12 items-center justify-center rounded-lg border border-border/60 bg-muted/40 transition-all hover:bg-muted/60 hover:shadow-soft hover:-translate-y-0.5"
+            aria-label="Phone"
+          >
+            <Phone className="h-5 w-5 text-muted-foreground transition-all group-hover:scale-110 group-hover:text-foreground" />
           </Link>
           <Link
             href={personalInfo.linkedin}

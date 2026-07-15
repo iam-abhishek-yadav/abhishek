@@ -1,7 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { skills } from "@/lib/data";
-import { Code2, Globe, Database, Cloud, Plug, TestTube, Sparkles } from "lucide-react";
+import {
+  Code2,
+  Layout,
+  Server,
+  Database,
+  Cloud,
+  Plug,
+  TestTube,
+  Sparkles,
+  Activity,
+} from "lucide-react";
 
 const skillCategories = [
   {
@@ -11,39 +21,51 @@ const skillCategories = [
     variant: "secondary" as const,
   },
   {
-    title: "Web Development",
-    skills: skills.webDevelopment,
-    icon: Globe,
+    title: "Frontend",
+    skills: skills.frontend,
+    icon: Layout,
     variant: "secondary" as const,
   },
   {
-    title: "Database / Caching / Queues",
+    title: "Backend",
+    skills: skills.backend,
+    icon: Server,
+    variant: "secondary" as const,
+  },
+  {
+    title: "Data & Queues",
     skills: skills.database,
     icon: Database,
     variant: "secondary" as const,
   },
   {
-    title: "DevOps / Cloud",
-    skills: skills.devops,
-    icon: Cloud,
+    title: "AI & LLMs",
+    skills: skills.ai,
+    icon: Sparkles,
     variant: "secondary" as const,
   },
   {
-    title: "Third-Party APIs & Integrations",
-    skills: skills.integrations,
-    icon: Plug,
-    variant: "secondary" as const,
-  },
-  {
-    title: "Testing / Tools",
+    title: "Browser & Testing",
     skills: skills.testing,
     icon: TestTube,
     variant: "secondary" as const,
   },
   {
-    title: "AI Integrations",
-    skills: skills.ai,
-    icon: Sparkles,
+    title: "DevOps & Cloud",
+    skills: skills.devops,
+    icon: Cloud,
+    variant: "secondary" as const,
+  },
+  {
+    title: "Observability",
+    skills: skills.observability,
+    icon: Activity,
+    variant: "secondary" as const,
+  },
+  {
+    title: "Integrations",
+    skills: skills.integrations,
+    icon: Plug,
     variant: "secondary" as const,
   },
 ];
@@ -99,4 +121,3 @@ export function Skills() {
     </section>
   );
 }
-

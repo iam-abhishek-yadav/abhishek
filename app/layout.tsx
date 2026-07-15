@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Abhishek Yadav - Software Engineer",
+  title: "Abhishek Yadav - Senior Software Engineer",
   description:
-    "Senior Software Engineer with 4+ years of experience designing and scaling distributed SaaS systems across frontend and backend.",
+    "Senior Software Engineer with 4+ years of experience, including a founding-engineer role at a YC-backed AI observability startup building session replay, QA automation, and multi-LLM platforms.",
 };
 
 export default function RootLayout({
