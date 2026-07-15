@@ -43,7 +43,7 @@ export function Contact() {
             Let&apos;s build something
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Open to thoughtful conversations — product engineering, founding roles,
+            Open to thoughtful conversations - product engineering, founding roles,
             or interesting AI infrastructure problems.
           </p>
         </div>

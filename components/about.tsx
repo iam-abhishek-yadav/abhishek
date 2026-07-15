@@ -71,7 +71,7 @@ export function About() {
                     {education.institution}
                   </p>
                   <p className="mt-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {education.location} · {education.startDate}–{education.endDate}
+                    {education.location} · {education.startDate} - {education.endDate}
                   </p>
                 </div>
               </div>

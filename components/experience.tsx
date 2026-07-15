@@ -10,7 +10,7 @@ export function Experience() {
         <SectionHeader
           eyebrow="Experience"
           title="Where I've worked"
-          description="Roles where I owned product-critical systems — details live on each case page."
+          description="Roles where I owned product-critical systems - details live on each case page."
         />
 
         <div className="divide-y divide-border/60 border-y border-border/60">
@@ -21,7 +21,7 @@ export function Experience() {
               className="group grid gap-4 py-8 transition-colors sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:gap-8 sm:py-10"
             >
               <p className="font-mono text-sm tabular-nums text-muted-foreground">
-                {exp.startDate} – {exp.endDate}
+                {exp.startDate} - {exp.endDate}
               </p>
 
               <div className="min-w-0 space-y-1">

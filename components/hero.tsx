@@ -61,7 +61,7 @@ export function Hero() {
             style={{ animationDelay: "120ms" }}
           >
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Founding engineer at a YC-backed AI observability startup. Full-stack —
+              Founding engineer at a YC-backed AI observability startup. Full-stack -
               React, Next.js, FastAPI, Kafka, ClickHouse, multi-LLM orchestration.
             </p>
             <div className="flex items-center gap-4">

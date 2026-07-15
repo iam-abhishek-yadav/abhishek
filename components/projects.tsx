@@ -1,21 +1,31 @@
+"use client";
+
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/section-header";
 import { projects } from "@/lib/data";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
+
+const INITIAL_COUNT = 3;
 
 export function Projects() {
+  const [showAll, setShowAll] = useState(false);
+  const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_COUNT);
+  const hasMore = projects.length > INITIAL_COUNT;
+
   return (
     <section id="work" className="px-4 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeader
           eyebrow="Selected work"
           title="Things I've built"
-          description="Systems I've designed and shipped end-to-end — from ingestion and browsers to agents and alerts."
+          description="Systems I've designed and shipped end-to-end - from ingestion and browsers to agents and alerts."
         />
 
         <div className="divide-y divide-border/60 border-y border-border/60">
-          {projects.map((project, index) => (
+          {visibleProjects.map((project, index) => (
             <Link
               key={project.id}
               href={`/projects/${project.id}`}
@@ -75,6 +85,28 @@ export function Projects() {
             </Link>
           ))}
         </div>
+
+        {hasMore && (
+          <div className="mt-8 flex justify-center">
+            <Button
+              variant="outline"
+              onClick={() => setShowAll((prev) => !prev)}
+              className="rounded-full border-border/80 px-6 hover:bg-foreground hover:text-background"
+            >
+              {showAll ? (
+                <>
+                  Show less
+                  <ChevronUp className="ml-2 h-4 w-4" />
+                </>
+              ) : (
+                <>
+                  Show more
+                  <ChevronDown className="ml-2 h-4 w-4" />
+                </>
+              )}
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

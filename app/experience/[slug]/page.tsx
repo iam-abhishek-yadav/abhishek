@@ -40,7 +40,7 @@ export default async function ExperienceDetailPage({
 
         <header className="mb-12 space-y-4">
           <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-            {exp.startDate} – {exp.endDate} · {exp.location}
+            {exp.startDate} - {exp.endDate} · {exp.location}
           </p>
           <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
             {exp.position}
