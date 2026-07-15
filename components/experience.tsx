@@ -1,74 +1,48 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/section-header";
 import { experience } from "@/lib/data";
 import Link from "next/link";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export function Experience() {
   return (
-    <section id="experience" className="px-4 py-16 sm:py-24">
+    <section id="experience" className="px-4 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl">
-        <SectionHeader title="Experience" index="02" />
-        <div className="grid gap-5 md:grid-cols-2">
+        <SectionHeader
+          eyebrow="Experience"
+          title="Where I've worked"
+          description="Roles where I owned product-critical systems — details live on each case page."
+        />
+
+        <div className="divide-y divide-border/60 border-y border-border/60">
           {experience.map((exp) => (
-            <Card
+            <Link
               key={exp.id}
-              className="group border-border/70 bg-card/60 hover:border-foreground/25"
+              href={`/experience/${exp.id}`}
+              className="group grid gap-4 py-8 transition-colors sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:gap-8 sm:py-10"
             >
-              <CardHeader>
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0 flex-1 space-y-2">
-                    <CardTitle className="font-display text-lg font-semibold tracking-tight sm:text-xl">
-                      {exp.position}
-                    </CardTitle>
-                    <p className="text-sm font-medium text-muted-foreground sm:text-base">
-                      {exp.company}
-                    </p>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    asChild
-                    className="h-9 w-9 shrink-0 rounded-full opacity-60 transition-all hover:opacity-100 group-hover:bg-muted"
-                  >
-                    <Link href={`/experience/${exp.id}`}>
-                      <ExternalLink className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                  <span>{exp.location}</span>
-                  <span className="text-border">/</span>
-                  <span>
-                    {exp.startDate} – {exp.endDate}
-                  </span>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="mb-6 space-y-3">
-                  {exp.description.slice(0, 2).map((item, i) => (
-                    <li key={i} className="flex gap-3">
-                      <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-foreground/50" />
-                      <span className="line-clamp-2 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  variant="outline"
-                  size="default"
-                  asChild
-                  className="w-full rounded-full border-border/80 group/btn hover:bg-foreground hover:text-background"
-                >
-                  <Link href={`/experience/${exp.id}`}>
-                    View details
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-0.5" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+              <p className="font-mono text-sm tabular-nums text-muted-foreground">
+                {exp.startDate} – {exp.endDate}
+              </p>
+
+              <div className="min-w-0 space-y-1">
+                <h3 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
+                  {exp.position}
+                </h3>
+                <p className="text-sm text-muted-foreground sm:text-base">
+                  {exp.company}
+                  <span className="mx-2 text-border">·</span>
+                  {exp.location}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors group-hover:text-foreground sm:justify-self-end">
+                <span className="hidden sm:inline">Details</span>
+                <ArrowUpRight
+                  className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  strokeWidth={1.5}
+                />
+              </div>
+            </Link>
           ))}
         </div>
       </div>

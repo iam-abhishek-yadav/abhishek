@@ -1,90 +1,69 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/section-header";
 import { projects } from "@/lib/data";
 import Link from "next/link";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export function Projects() {
-  const previewSkillsCount = 4;
-
   return (
-    <section id="projects" className="px-4 py-16 sm:py-24">
+    <section id="work" className="px-4 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl">
-        <SectionHeader title="Projects" index="03" />
-        <div className="grid gap-5 md:grid-cols-2">
-          {projects.map((project) => {
-            const previewSkills = project.technologies.slice(0, previewSkillsCount);
-            const remainingSkills = project.technologies.length - previewSkillsCount;
+        <SectionHeader
+          eyebrow="Selected work"
+          title="Things I've built"
+          description="Systems I've designed and shipped end-to-end — from ingestion and browsers to agents and alerts."
+        />
 
-            return (
-              <Card
-                key={project.id}
-                className="group border-border/70 bg-card/60 hover:border-foreground/25"
-              >
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-3">
-                    <CardTitle className="font-display text-lg font-semibold tracking-tight sm:text-xl">
-                      {project.name}
-                    </CardTitle>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      asChild
-                      className="h-9 w-9 shrink-0 rounded-full opacity-60 transition-all hover:opacity-100 group-hover:bg-muted"
+        <div className="divide-y divide-border/60 border-y border-border/60">
+          {projects.map((project, index) => (
+            <Link
+              key={project.id}
+              href={`/projects/${project.id}`}
+              className="group grid gap-6 py-10 transition-colors sm:grid-cols-[auto_1fr_auto] sm:items-start sm:gap-10 sm:py-12"
+            >
+              <span className="font-mono text-sm text-muted-foreground/70 tabular-nums">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              <div className="min-w-0 space-y-4">
+                <h3 className="font-display text-2xl font-semibold tracking-tight transition-colors group-hover:text-foreground sm:text-3xl md:text-4xl">
+                  <span className="bg-gradient-to-r from-foreground to-foreground bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 group-hover:bg-[length:100%_1px]">
+                    {project.name}
+                  </span>
+                </h3>
+                <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+                  {project.tagline}
+                </p>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {project.technologies.slice(0, 5).map((tech) => (
+                    <Badge
+                      key={tech}
+                      variant="outline"
+                      className="rounded-md border-border/60 bg-transparent px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground"
                     >
-                      <Link href={`/projects/${project.id}`}>
-                        <ExternalLink className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {previewSkills.map((tech) => (
-                      <Badge
-                        key={tech}
-                        variant="outline"
-                        className="rounded-md border-border/70 bg-background/40 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground"
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
-                    {remainingSkills > 0 && (
-                      <Badge
-                        variant="outline"
-                        className="rounded-md border-border/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground/70"
-                      >
-                        +{remainingSkills}
-                      </Badge>
-                    )}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="mb-6 space-y-3">
-                    {project.description.slice(0, 2).map((item, i) => (
-                      <li key={i} className="flex gap-3">
-                        <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-foreground/50" />
-                        <span className="line-clamp-2 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button
-                    variant="outline"
-                    size="default"
-                    asChild
-                    className="w-full rounded-full border-border/80 group/btn hover:bg-foreground hover:text-background"
-                  >
-                    <Link href={`/projects/${project.id}`}>
-                      View details
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-0.5" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            );
-          })}
+                      {tech}
+                    </Badge>
+                  ))}
+                  {project.technologies.length > 5 && (
+                    <Badge
+                      variant="outline"
+                      className="rounded-md border-border/40 bg-transparent px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground/70"
+                    >
+                      +{project.technologies.length - 5}
+                    </Badge>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 self-center text-sm text-muted-foreground transition-colors group-hover:text-foreground sm:justify-self-end">
+                <span className="hidden sm:inline">Case study</span>
+                <ArrowUpRight
+                  className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  strokeWidth={1.5}
+                />
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

@@ -11,6 +11,9 @@ export const personalInfo = {
   github: "https://github.com/iam-abhishek-yadav",
 };
 
+export const tagline =
+  "I design and build production AI systems — session replay, QA agents, and event pipelines at scale.";
+
 export const summary = `Senior Software Engineer with 4+ years of experience, including a founding-engineer role at a YC-backed AI observability startup where I designed and built the majority of the product – a production-grade platform spanning real-time event ingestion pipelines, session replay, AI-powered issue detection, a full QA automation agent, a Chrome extension, and a multi-channel alert system. Experienced across the full stack: React/Next.js frontends with hybrid PostgreSQL + ClickHouse data architectures, Node.js and FastAPI backends, Kafka-based event-driven pipelines, multi-LLM orchestration (OpenAI, Gemini, Anthropic, Bedrock), and cloud-native deployments on Azure and Vercel. Known for making sound architectural decisions independently, moving fast without breaking things, and working directly with founders to ship the right thing.`;
 
 export const experience = [
@@ -54,6 +57,8 @@ export const projects = [
   {
     id: "real-time-event-ingestion-pipeline",
     name: "Real-Time Event Ingestion Pipeline",
+    tagline:
+      "Dual-path SDK ingestion handling thousands of events per second with billing, enrichment, and analytics.",
     technologies: [
       "FastAPI",
       "KafkaJS",
@@ -73,6 +78,8 @@ export const projects = [
   {
     id: "ai-powered-qa-test-automation-agent",
     name: "AI-Powered QA Test Automation Agent",
+    tagline:
+      "From Chrome recordings to Playwright codegen, remote validation, and GitHub PR gates — end to end.",
     technologies: [
       "Node.js",
       "Playwright",
@@ -92,6 +99,8 @@ export const projects = [
   {
     id: "decipher-recorder-chrome-extension",
     name: "Decipher Recorder – Chrome Extension",
+    tagline:
+      "Three parallel capture pipelines — DOM replay, CDP screenshots, and tab video — under Manifest V3.",
     technologies: [
       "Chrome MV3",
       "TypeScript",
@@ -110,6 +119,8 @@ export const projects = [
   {
     id: "alert-notification-service",
     name: "Alert & Notification Service",
+    tagline:
+      "Rule-based Slack + email alerts with threaded QA lifecycles and daily AI digests.",
     technologies: [
       "Node.js",
       "KafkaJS",

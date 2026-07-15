@@ -3,32 +3,38 @@ import { cn } from "@/lib/utils";
 
 type SectionHeaderProps = {
   title: string;
-  index?: string;
+  eyebrow?: string;
+  description?: string;
   action?: ReactNode;
   className?: string;
 };
 
 export function SectionHeader({
   title,
-  index,
+  eyebrow,
+  description,
   action,
   className,
 }: SectionHeaderProps) {
   return (
-    <div className={cn("mb-10 sm:mb-14", className)}>
-      <div className="flex items-end justify-between gap-4">
-        <div className="min-w-0 flex-1">
-          <h2 className="font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            {index && (
-              <span className="mr-3 font-mono text-sm font-normal tracking-[0.2em] text-muted-foreground sm:text-base">
-                {index}
-              </span>
-            )}
+    <div className={cn("mb-12 sm:mb-16", className)}>
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="max-w-2xl">
+          {eyebrow && (
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+              {eyebrow}
+            </p>
+          )}
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             {title}
           </h2>
-          <div className="mt-4 h-px w-full max-w-xs bg-gradient-to-r from-foreground/40 via-foreground/15 to-transparent" />
+          {description && (
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {description}
+            </p>
+          )}
         </div>
-        {action && <div className="shrink-0 pb-1">{action}</div>}
+        {action && <div className="shrink-0">{action}</div>}
       </div>
     </div>
   );

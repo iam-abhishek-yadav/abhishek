@@ -7,11 +7,10 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const navItems: Array<{ label: string; href: string }> = [
+  { label: "Work", href: "#work" },
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Education", href: "#education" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export function Nav() {
@@ -73,7 +72,7 @@ export function Nav() {
           href={isHomePage ? "#hero" : "/#hero"}
           className="font-display text-sm font-semibold tracking-tight text-foreground transition-opacity hover:opacity-70 sm:text-base"
         >
-          Abhishek Yadav
+          AY
         </Link>
         <div className="flex items-center gap-0.5 sm:gap-1">
           {navItems.map((item) => {
