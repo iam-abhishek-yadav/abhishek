@@ -55,6 +55,37 @@ export const experience = [
 
 export const projects = [
   {
+    id: "mini-linear",
+    name: "Mini Linear",
+    tagline:
+      "Multi-tenant, Linear-inspired task board — kanban, invites, and org-scoped workspaces.",
+    status: "In progress" as const,
+    url: "https://linear-mini.builderonline.site/",
+    role: "Full-Stack Developer",
+    technologies: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "PostgreSQL",
+      "Drizzle ORM",
+      "TanStack Query",
+      "Zod",
+      "Tailwind CSS 4",
+      "shadcn/ui",
+      "@dnd-kit",
+      "Resend",
+      "Docker",
+    ],
+    description: [
+      "Multi-tenant, Linear-inspired task board where each organization is an isolated workspace. Teams collaborate on issues via kanban/list views, comments, activity history, and in-app notifications, with invite-only signup and role-based admin controls.",
+      "Built core product surfaces: Kanban board (drag-and-drop), list views (Active / Backlog / Completed / My Issues), issue detail overlay, inbox notifications, and workspace settings.",
+      "Designed multi-tenant data model and org-scoped APIs so tasks, members, and invites stay isolated per workspace.",
+      "Implemented invite-only auth: custom sessions (bcrypt + httpOnly cookies), org bootstrap invites (CLI), and member invites with Admin / Manager / Member roles.",
+      "Wired App Router Server Components for layout data loading with client state via TanStack Query + React context providers; REST route handlers with Zod validation and transactional task/activity/notification writes.",
+      "Shipped Dockerized Postgres + app deployment with Drizzle migrations and structured server logging.",
+    ],
+  },
+  {
     id: "real-time-event-ingestion-pipeline",
     name: "Real-Time Event Ingestion Pipeline",
     tagline:

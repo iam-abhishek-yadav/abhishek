@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/lib/data";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -25,6 +25,10 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
+  const liveUrl = "url" in project ? project.url : undefined;
+  const status = "status" in project ? project.status : undefined;
+  const role = "role" in project ? project.role : undefined;
+
   return (
     <div className="min-h-screen">
       <Nav />
@@ -41,15 +45,46 @@ export default async function ProjectDetailPage({
         </Button>
 
         <header className="mb-12 space-y-6">
-          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-            Case study · {String(index + 1).padStart(2, "0")}
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+              Case study · {String(index + 1).padStart(2, "0")}
+            </p>
+            {status && (
+              <Badge
+                variant="outline"
+                className="rounded-full border-foreground/30 bg-foreground/5 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-foreground"
+              >
+                {status}
+              </Badge>
+            )}
+          </div>
           <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
             {project.name}
           </h1>
           <p className="text-lg leading-relaxed text-muted-foreground sm:text-xl sm:leading-8">
             {project.tagline}
           </p>
+          {(role || liveUrl) && (
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              {role && (
+                <p>
+                  <span className="text-muted-foreground/70">Role · </span>
+                  {role}
+                </p>
+              )}
+              {liveUrl && (
+                <Link
+                  href={liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-foreground transition-opacity hover:opacity-70"
+                >
+                  Live site
+                  <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+                </Link>
+              )}
+            </div>
+          )}
           <div className="flex flex-wrap gap-2 pt-2">
             {project.technologies.map((tech) => (
               <Badge

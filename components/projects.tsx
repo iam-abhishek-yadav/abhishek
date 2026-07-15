@@ -26,11 +26,21 @@ export function Projects() {
               </span>
 
               <div className="min-w-0 space-y-4">
-                <h3 className="font-display text-2xl font-semibold tracking-tight transition-colors group-hover:text-foreground sm:text-3xl md:text-4xl">
-                  <span className="bg-gradient-to-r from-foreground to-foreground bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 group-hover:bg-[length:100%_1px]">
-                    {project.name}
-                  </span>
-                </h3>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="font-display text-2xl font-semibold tracking-tight transition-colors group-hover:text-foreground sm:text-3xl md:text-4xl">
+                    <span className="bg-gradient-to-r from-foreground to-foreground bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 group-hover:bg-[length:100%_1px]">
+                      {project.name}
+                    </span>
+                  </h3>
+                  {"status" in project && project.status && (
+                    <Badge
+                      variant="outline"
+                      className="rounded-full border-foreground/30 bg-foreground/5 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-foreground"
+                    >
+                      {project.status}
+                    </Badge>
+                  )}
+                </div>
                 <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
                   {project.tagline}
                 </p>
