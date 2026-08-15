@@ -55,12 +55,12 @@ export const experience = [
 
 export const projects = [
   {
-    id: "mini-linear",
-    name: "Mini Linear",
+    id: "ship",
+    name: "Ship",
     tagline:
       "Multi-tenant, Linear-inspired task board - kanban, invites, and org-scoped workspaces.",
     status: "In progress" as const,
-    url: "https://linear-mini.builderonline.site/",
+    url: "https://ship.builderonline.site/",
     role: "Full-Stack Developer",
     technologies: [
       "Next.js 16",
