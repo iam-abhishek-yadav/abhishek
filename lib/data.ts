@@ -6,7 +6,6 @@ export const personalInfo = {
   name: "Abhishek Yadav",
   title: "Senior Software Engineer",
   email: "abhishekyadav.recs@gmail.com",
-  phone: "+91 9140402031",
   linkedin: "https://linkedin.com/in/abhisheky97",
   github: "https://github.com/iam-abhishek-yadav",
 };

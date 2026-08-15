@@ -2,7 +2,7 @@
 
 import { personalInfo } from "@/lib/data";
 import { Reveal } from "@/components/reveal";
-import { Mail, Linkedin, Github, Phone, ArrowUpRight } from "lucide-react";
+import { Mail, Linkedin, Github, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 const links = [
@@ -11,12 +11,6 @@ const links = [
     label: "Email",
     detail: personalInfo.email,
     icon: Mail,
-  },
-  {
-    href: `tel:${personalInfo.phone.replace(/\s/g, "")}`,
-    label: "Phone",
-    detail: personalInfo.phone,
-    icon: Phone,
   },
   {
     href: personalInfo.linkedin,
@@ -53,7 +47,7 @@ export function Contact() {
           </div>
         </Reveal>
 
-        <div className="grid gap-0 divide-y divide-border/60 border-y border-border/60 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+        <div className="grid gap-0 divide-y divide-border/60 border-y border-border/60 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {links.map(({ href, label, detail, icon: Icon, external }, index) => (
             <Reveal key={label} delay={index * 60}>
               <Link
