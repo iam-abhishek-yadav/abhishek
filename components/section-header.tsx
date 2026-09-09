@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 type SectionHeaderProps = {
   title: string;
-  eyebrow?: string;
+  index?: string;
   description?: string;
   action?: ReactNode;
   className?: string;
@@ -11,25 +11,25 @@ type SectionHeaderProps = {
 
 export function SectionHeader({
   title,
-  eyebrow,
+  index,
   description,
   action,
   className,
 }: SectionHeaderProps) {
   return (
-    <div className={cn("mb-8 sm:mb-16", className)}>
+    <div className={cn("mb-10 sm:mb-14", className)}>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
         <div className="max-w-2xl">
-          {eyebrow && (
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground sm:mb-3 sm:text-[11px] sm:tracking-[0.28em]">
-              {eyebrow}
+          {index && (
+            <p className="mb-3 font-mono text-[11px] tabular-nums tracking-[0.18em] text-mark">
+              {index}
             </p>
           )}
-          <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+          <h2 className="font-display text-3xl font-medium italic tracking-tight text-foreground sm:text-4xl md:text-[2.75rem] md:leading-tight">
             {title}
           </h2>
           {description && (
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:mt-4 sm:text-lg">
+            <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
               {description}
             </p>
           )}

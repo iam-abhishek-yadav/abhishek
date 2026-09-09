@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { chapters, personalInfo } from "@/lib/data";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,22 +9,14 @@ import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
-const navItems: Array<{ label: string; href: string }> = [
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
-];
-
 export function Nav() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const [activeSection, setActiveSection] = useState("");
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -46,85 +39,32 @@ export function Nav() {
     };
   }, [menuOpen]);
 
-  useEffect(() => {
-    if (!isHomePage) return;
-
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      setActiveSection(hash || "#hero");
-    };
-
-    const handleScroll = () => {
-      const sections = navItems.map((item) => item.href.substring(1));
-      const scrollPosition = window.scrollY + 120;
-
-      for (const section of sections.reverse()) {
-        const element = document.getElementById(section);
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveSection(`#${section}`);
-          return;
-        }
-      }
-      setActiveSection("#hero");
-    };
-
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isHomePage]);
-
-  const linkHref = (href: string) => (isHomePage ? href : `/${href}`);
+  const chapterHref = (id: string) => (isHomePage ? `#${id}` : `/#${id}`);
 
   return (
-    <header className="sticky top-0 z-40 w-full px-3 pt-3 safe-top sm:px-4 sm:pt-4">
-      <nav
-        className={cn(
-          "relative mx-auto flex h-12 max-w-6xl items-center justify-between rounded-2xl border px-3 transition-all duration-300 sm:h-14 sm:px-5",
-          scrolled || menuOpen
-            ? "border-border/80 bg-background/90 shadow-soft backdrop-blur-xl"
-            : "border-border/40 bg-background/40 backdrop-blur-md"
-        )}
-      >
+    <header
+      className={cn(
+        "sticky top-0 z-40 w-full px-4 transition-colors safe-top sm:px-6",
+        scrolled || menuOpen
+          ? "bg-background/85 backdrop-blur-md"
+          : "bg-transparent"
+      )}
+    >
+      <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between sm:h-16">
         <Link
-          href={isHomePage ? "#hero" : "/#hero"}
-          className="font-display text-sm font-semibold tracking-tight text-foreground transition-opacity hover:opacity-70 sm:text-base"
+          href={isHomePage ? "#me" : "/"}
+          className="font-mono text-[11px] tracking-[0.22em] text-foreground transition-opacity hover:opacity-60"
           onClick={() => setMenuOpen(false)}
         >
-          AY
+          {personalInfo.firstName.toUpperCase()}
         </Link>
 
-        <div className="hidden items-center gap-1 sm:flex">
-          {navItems.map((item) => {
-            const isActive = activeSection === item.href;
-            return (
-              <Button
-                key={item.href}
-                variant="ghost"
-                asChild
-                className={cn(
-                  "relative h-8 rounded-lg px-3 text-sm transition-colors",
-                  isActive
-                    ? "bg-foreground text-background hover:bg-foreground/90 hover:text-background"
-                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-                )}
-              >
-                <Link href={linkHref(item.href)}>{item.label}</Link>
-              </Button>
-            );
-          })}
-        </div>
-
-        <div className="flex items-center gap-0.5">
+        <div className="flex items-center gap-1">
           <ThemeSwitcher />
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 rounded-lg sm:hidden"
+            className="h-9 w-9 rounded-none lg:hidden"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
@@ -138,30 +78,23 @@ export function Nav() {
         <>
           <button
             type="button"
-            className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm sm:hidden"
+            className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm lg:hidden"
             aria-label="Close menu overlay"
             onClick={() => setMenuOpen(false)}
           />
-          <div className="absolute left-3 right-3 top-[calc(100%+0.5rem)] z-50 overflow-hidden rounded-2xl border border-border/80 bg-background/95 shadow-soft backdrop-blur-xl sm:hidden">
-            <div className="flex flex-col p-2">
-              {navItems.map((item) => {
-                const isActive = activeSection === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={linkHref(item.href)}
-                    onClick={() => setMenuOpen(false)}
-                    className={cn(
-                      "rounded-xl px-4 py-3.5 text-base font-medium transition-colors",
-                      isActive
-                        ? "bg-foreground text-background"
-                        : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
+          <div className="absolute inset-x-0 top-full z-50 border-y border-border/70 bg-background lg:hidden">
+            <div className="mx-auto flex max-w-6xl flex-col px-4 py-4">
+              {chapters.map((chapter) => (
+                <Link
+                  key={chapter.id}
+                  href={chapterHref(chapter.id)}
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-baseline gap-4 py-3 font-mono text-sm tracking-wide text-muted-foreground hover:text-foreground"
+                >
+                  <span className="text-mark tabular-nums">{chapter.number}</span>
+                  {chapter.label}
+                </Link>
+              ))}
             </div>
           </div>
         </>

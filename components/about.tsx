@@ -1,95 +1,55 @@
-"use client";
-
-import { useState } from "react";
 import { SectionHeader } from "@/components/section-header";
 import { Reveal } from "@/components/reveal";
-import { summary, education, skills } from "@/lib/data";
-import { GraduationCap } from "lucide-react";
-import { Button } from "@/components/ui/button";
-
-const featuredSkills = [
-  ...skills.languages.slice(0, 3),
-  ...skills.frontend.slice(0, 2),
-  ...skills.backend.slice(0, 2),
-  ...skills.database.slice(0, 3),
-  ...skills.ai.slice(0, 3),
-  ...skills.testing.slice(0, 2),
-  ...skills.devops.slice(0, 3),
-];
+import { education, fieldNotes, toolkit } from "@/lib/data";
 
 export function About() {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   return (
-    <section id="about" className="px-4 py-14 sm:py-28">
-      <div className="mx-auto max-w-6xl">
-        <Reveal>
-          <SectionHeader
-            eyebrow="About"
-            title="A bit of context"
-            description="Founding engineer energy: ship the platform, own the architecture, talk directly with founders."
-          />
-        </Reveal>
+    <section id="notes" className="scroll-mt-20 py-16 sm:py-24">
+      <Reveal>
+        <SectionHeader
+          index="02"
+          title="A few notes"
+          description="Not a manifesto. Just the habits that keep showing up in the work."
+        />
+      </Reveal>
 
-        <div className="grid gap-10 lg:grid-cols-[1.4fr_0.6fr] lg:gap-16">
-          <Reveal delay={80} className="space-y-6 sm:space-y-8">
-            <div>
-              <p
-                className={`text-sm leading-7 text-muted-foreground sm:text-lg sm:leading-9 ${
-                  !isExpanded ? "line-clamp-5 sm:line-clamp-none" : ""
-                }`}
-              >
-                {summary}
+      <div className="divide-y divide-border/70 border-y border-border/70">
+        {fieldNotes.map((note, index) => (
+          <Reveal key={note.title} delay={index * 50}>
+            <article className="grid gap-3 py-8 sm:grid-cols-[4rem_minmax(0,14rem)_1fr] sm:gap-8 sm:py-10">
+              <p className="font-mono text-[11px] tabular-nums text-mark">
+                {String(index + 1).padStart(2, "0")}
               </p>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsExpanded((v) => !v)}
-                className="mt-2 h-9 px-0 text-sm text-foreground underline-offset-4 hover:bg-transparent hover:underline sm:hidden"
-              >
-                {isExpanded ? "Show less" : "Read more"}
-              </Button>
-            </div>
-
-            <div>
-              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground sm:mb-4 sm:text-[11px]">
-                Toolkit
+              <h3 className="font-display text-xl font-medium italic leading-snug sm:text-[1.35rem]">
+                {note.title}
+              </h3>
+              <p className="text-sm leading-7 text-muted-foreground sm:text-[15px] sm:leading-8">
+                {note.body}
               </p>
-              <p className="break-words text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
-                {featuredSkills.join(" · ")}
-              </p>
-            </div>
+            </article>
           </Reveal>
-
-          <Reveal
-            delay={160}
-            variant="left"
-            className="space-y-4 border-t border-border/60 pt-6 sm:space-y-6 sm:pt-8 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-1"
-            as="aside"
-          >
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground sm:text-[11px]">
-              Education
-            </p>
-            <div className="flex items-start gap-3">
-              <GraduationCap
-                className="mt-0.5 h-5 w-5 shrink-0 text-foreground"
-                strokeWidth={1.5}
-              />
-              <div className="min-w-0">
-                <p className="font-display text-base font-semibold tracking-tight sm:text-lg">
-                  {education.degree}
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {education.institution}
-                </p>
-                <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground sm:text-[11px]">
-                  {education.location} · {education.startDate} - {education.endDate}
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
+        ))}
       </div>
+
+      <Reveal delay={80}>
+        <div className="mt-12 grid gap-8 border-t border-border/70 pt-10 sm:grid-cols-[4rem_1fr] sm:gap-8">
+          <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground">
+            Reach
+          </p>
+          <div className="space-y-8">
+            <p className="text-sm leading-8 text-muted-foreground sm:text-[15px]">
+              {toolkit.join("  ·  ")}
+            </p>
+            <p className="text-sm leading-7 text-muted-foreground">
+              <span className="font-display italic text-foreground">
+                {education.institution}
+              </span>
+              <span className="mx-2 text-border">—</span>
+              {education.city}, {education.startDate}–{education.endDate}
+            </p>
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }

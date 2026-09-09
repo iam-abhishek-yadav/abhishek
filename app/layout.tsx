@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -13,16 +13,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "Abhishek Yadav - Senior Software Engineer",
+  title: "Abhishek Yadav",
   description:
-    "Senior Software Engineer with 4+ years of experience, including a founding-engineer role at a YC-backed AI observability startup building session replay, QA automation, and multi-LLM platforms.",
+    "I make machines explain themselves. Founding engineer at a YC-backed observability company — session replay, QA agents, and event pipelines.",
 };
 
 export const viewport: Viewport = {
@@ -39,16 +40,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
           enableSystem={false}
-          storageKey="ay-theme"
+          storageKey="ay-editorial"
           disableTransitionOnChange
         >
-          <div className="pointer-events-none fixed inset-0 z-0 bg-noise opacity-40" />
+          <div className="pointer-events-none fixed inset-0 z-0 bg-noise opacity-30" />
           <div className="relative z-10">{children}</div>
         </ThemeProvider>
       </body>

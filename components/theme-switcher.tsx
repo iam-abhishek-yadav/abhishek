@@ -22,7 +22,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
       size="icon"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn(
-        "h-9 w-9 rounded-lg text-muted-foreground hover:bg-muted/70 hover:text-foreground",
+        "h-9 w-9 rounded-none text-muted-foreground hover:bg-muted/70 hover:text-foreground",
         className
       )}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}

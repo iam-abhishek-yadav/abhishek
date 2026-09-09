@@ -1,57 +1,89 @@
 import { SectionHeader } from "@/components/section-header";
 import { Reveal } from "@/components/reveal";
-import { experience } from "@/lib/data";
+import { education, experience, pathIntro } from "@/lib/data";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+const school = {
+  id: "school",
+  city: education.city,
+  startDate: education.startDate,
+  endDate: education.endDate,
+  position: "Computer Science",
+  company: education.institution,
+  summary: "Where the path starts.",
+  href: null as string | null,
+};
+
 export function Experience() {
+  const path = [
+    school,
+    ...[...experience].reverse().map((exp) => ({
+      id: exp.id,
+      city: exp.city,
+      startDate: exp.startDate,
+      endDate: exp.endDate,
+      position: exp.position,
+      company: exp.company,
+      summary: exp.summary,
+      href: `/experience/${exp.id}` as string | null,
+    })),
+  ];
+
   return (
-    <section id="experience" className="px-4 py-14 sm:py-28">
-      <div className="mx-auto max-w-6xl">
-        <Reveal>
-          <SectionHeader
-            eyebrow="Experience"
-            title="Where I've worked"
-            description="Roles where I owned product-critical systems - details live on each case page."
-          />
-        </Reveal>
+    <section id="path" className="scroll-mt-20 py-16 sm:py-24">
+      <Reveal>
+        <SectionHeader index="04" title="The path" description={pathIntro} />
+      </Reveal>
 
-        <div className="divide-y divide-border/60 border-y border-border/60">
-          {experience.map((exp, index) => (
-            <Reveal key={exp.id} delay={index * 80}>
-              <Link
-                href={`/experience/${exp.id}`}
-                className="group flex items-start justify-between gap-3 py-6 transition-colors sm:grid sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:gap-8 sm:py-10"
-              >
-                <div className="min-w-0 flex-1 space-y-2 sm:contents">
-                  <p className="font-mono text-xs tabular-nums text-muted-foreground sm:text-sm">
-                    {exp.startDate} - {exp.endDate}
-                  </p>
+      <ol className="relative ml-1 space-y-0 border-l border-border/70 sm:ml-2">
+        {path.map((stop, index) => {
+          const inner = (
+            <>
+              <span className="absolute -left-[5px] top-8 h-2.5 w-2.5 bg-mark" />
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 className="font-display text-2xl font-medium italic tracking-tight sm:text-3xl">
+                  {stop.city}
+                </h3>
+                <p className="font-mono text-[11px] tabular-nums tracking-wide text-muted-foreground">
+                  {stop.startDate}–{stop.endDate}
+                </p>
+              </div>
+              <p className="mt-2 text-sm text-foreground sm:text-base">
+                {stop.position}
+                <span className="mx-2 text-border">·</span>
+                <span className="text-muted-foreground">{stop.company}</span>
+              </p>
+              <p className="mt-2 max-w-xl text-sm leading-7 text-muted-foreground">
+                {stop.summary}
+              </p>
+              {stop.href && (
+                <p className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-foreground">
+                  Read
+                  <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+                </p>
+              )}
+            </>
+          );
 
-                  <div className="min-w-0 space-y-1">
-                    <h3 className="font-display text-lg font-semibold tracking-tight sm:text-2xl">
-                      {exp.position}
-                    </h3>
-                    <p className="text-sm text-muted-foreground sm:text-base">
-                      <span className="break-words">{exp.company}</span>
-                      <span className="mx-2 text-border">·</span>
-                      {exp.location}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex shrink-0 items-center gap-2 pt-1 text-sm text-muted-foreground transition-colors group-hover:text-foreground sm:justify-self-end sm:pt-0">
-                  <span className="hidden sm:inline">Details</span>
-                  <ArrowUpRight
-                    className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                    strokeWidth={1.5}
-                  />
-                </div>
-              </Link>
+          return (
+            <Reveal key={stop.id} delay={index * 70}>
+              <li className="relative pl-8 sm:pl-12">
+                {stop.href ? (
+                  <Link
+                    href={stop.href}
+                    className="group block py-8 transition-colors sm:py-10"
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <div className="py-8 sm:py-10">{inner}</div>
+                )}
+              </li>
             </Reveal>
-          ))}
-        </div>
-      </div>
+          );
+        })}
+      </ol>
     </section>
   );
 }
