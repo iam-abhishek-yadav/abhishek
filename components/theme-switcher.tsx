@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export function ThemeSwitcher({ className }: { className?: string }) {
@@ -14,15 +13,14 @@ export function ThemeSwitcher({ className }: { className?: string }) {
     setMounted(true);
   }, []);
 
-  const isDark = mounted && resolvedTheme === "dark";
+  const isDark = !mounted || resolvedTheme === "dark";
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
+    <button
+      type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn(
-        "h-9 w-9 rounded-none text-muted-foreground hover:bg-muted/70 hover:text-foreground",
+        "grid h-9 w-9 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
         className
       )}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
@@ -32,6 +30,6 @@ export function ThemeSwitcher({ className }: { className?: string }) {
       ) : (
         <Moon className="h-4 w-4" strokeWidth={1.5} />
       )}
-    </Button>
+    </button>
   );
 }

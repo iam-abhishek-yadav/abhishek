@@ -1,14 +1,22 @@
-import { Nav } from "@/components/nav";
-import { SiteFooter } from "@/components/site-footer";
+import type { Metadata } from "next";
+import { DetailShell, SideBlock } from "@/components/detail-shell";
+import { Chip } from "@/components/section-header";
 import { experience } from "@/lib/data";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  return experience.map((exp) => ({
-    slug: exp.id,
-  }));
+  return experience.map((exp) => ({ slug: exp.id }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const exp = experience.find((e) => e.id === slug);
+  if (!exp) return {};
+  return { title: `${exp.position} at ${exp.company}`, description: exp.summary };
 }
 
 export default async function ExperienceDetailPage({
@@ -24,49 +32,71 @@ export default async function ExperienceDetailPage({
   }
 
   return (
-    <div className="flex min-h-svh flex-col">
-      <Nav />
-      <article className="mx-auto w-full max-w-2xl flex-1 px-4 py-10 sm:py-20">
-        <Link
-          href="/#path"
-          className="mb-10 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} />
-          Path
-        </Link>
+    <DetailShell backHref="/#experience" backLabel="Experience">
+      <header className="mt-10 max-w-3xl">
+        <p className="label tabular-nums text-mark">
+          {exp.startDate} — {exp.endDate} · {exp.location}
+        </p>
+        <h1 className="mt-5 text-4xl font-semibold tracking-[-0.03em] sm:text-6xl">
+          {exp.company}
+        </h1>
+        <p className="mt-3 text-lg text-muted-foreground">
+          {exp.position}
+          {exp.companyNote && <span className="text-muted-foreground/70"> · {exp.companyNote}</span>}
+        </p>
+        <p className="mt-8 font-serif text-2xl leading-snug text-foreground/90 text-pretty sm:text-[1.75rem]">
+          {exp.summary}
+        </p>
+      </header>
 
-        <header className="mb-10 space-y-4">
-          <p className="font-mono text-[11px] tracking-[0.18em] text-mark">
-            {exp.city} · {exp.startDate}–{exp.endDate}
-          </p>
-          <h1 className="font-display text-4xl font-medium italic tracking-tight sm:text-5xl">
-            {exp.position}
-          </h1>
-          <p className="text-base text-muted-foreground sm:text-lg">
-            {exp.company}
-          </p>
-        </header>
+      <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-14">
+        <div className="space-y-14">
+          <section>
+            <h2 className="label flex items-center gap-3 text-muted-foreground">
+              <span className="text-mark">01</span> Highlights
+            </h2>
+            <ul className="mt-6 space-y-4">
+              {exp.highlights.map((h) => (
+                <li key={h} className="flex gap-3 text-[15px] leading-7">
+                  <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-mark" />
+                  <span className="text-foreground/85">{h}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-        {exp.intro && (
-          <p className="mb-12 font-display text-xl italic leading-8 text-foreground sm:text-2xl sm:leading-9">
-            {exp.intro}
-          </p>
-        )}
+          {exp.deepDive && (
+            <section>
+              <h2 className="label flex items-center gap-3 text-muted-foreground">
+                <span className="text-mark">02</span> Inside the platform
+              </h2>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {exp.deepDive.map((d) => (
+                  <div
+                    key={d.title}
+                    className="card-surface rounded-2xl border border-border p-5 sm:p-6"
+                  >
+                    <h3 className="text-base font-semibold tracking-tight">{d.title}</h3>
+                    <p className="mt-2.5 text-[14.5px] leading-7 text-muted-foreground">
+                      {d.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
 
-        <ol className="space-y-6 border-t border-border/70 pt-10">
-          {exp.description.map((item, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="mt-1 shrink-0 font-mono text-[11px] tabular-nums text-mark">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <p className="text-sm leading-7 text-muted-foreground sm:text-[15px] sm:leading-8">
-                {item}
-              </p>
-            </li>
-          ))}
-        </ol>
-      </article>
-      <SiteFooter />
-    </div>
+        <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+          <SideBlock label="Stack">
+            <div className="flex flex-wrap gap-1.5">
+              {exp.stack.map((s) => (
+                <Chip key={s}>{s}</Chip>
+              ))}
+            </div>
+          </SideBlock>
+        </aside>
+      </div>
+    </DetailShell>
   );
 }

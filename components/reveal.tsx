@@ -36,10 +36,7 @@ export function Reveal({
     const node = ref.current;
     if (!node) return;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
+    // Reduced motion is handled in CSS: `.reveal` renders fully visible there.
 
     const observer = new IntersectionObserver(
       ([entry]) => {

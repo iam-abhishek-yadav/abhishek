@@ -1,55 +1,51 @@
-import { SectionHeader } from "@/components/section-header";
+import { Chip, SectionHeader } from "@/components/section-header";
 import { Reveal } from "@/components/reveal";
-import { education, fieldNotes, toolkit } from "@/lib/data";
+import { pillars } from "@/lib/data";
+import { Bot, Database, LayoutPanelTop } from "lucide-react";
+
+const icons = [Bot, Database, LayoutPanelTop];
 
 export function About() {
   return (
-    <section id="notes" className="scroll-mt-20 py-16 sm:py-24">
+    <section id="about" className="scroll-mt-20 py-20 sm:py-28">
       <Reveal>
         <SectionHeader
-          index="02"
-          title="A few notes"
-          description="Not a manifesto. Just the habits that keep showing up in the work."
+          index="01"
+          label="About"
+          title="Product and infrastructure,"
+          accent="end to end."
+          description="I do my best work where the product and the infrastructure meet: an AI feature only works if there's a reliable pipeline behind it, and a pipeline only matters if people use what it powers. These are the three areas I work across."
         />
       </Reveal>
 
-      <div className="divide-y divide-border/70 border-y border-border/70">
-        {fieldNotes.map((note, index) => (
-          <Reveal key={note.title} delay={index * 50}>
-            <article className="grid gap-3 py-8 sm:grid-cols-[4rem_minmax(0,14rem)_1fr] sm:gap-8 sm:py-10">
-              <p className="font-mono text-[11px] tabular-nums text-mark">
-                {String(index + 1).padStart(2, "0")}
-              </p>
-              <h3 className="font-display text-xl font-medium italic leading-snug sm:text-[1.35rem]">
-                {note.title}
-              </h3>
-              <p className="text-sm leading-7 text-muted-foreground sm:text-[15px] sm:leading-8">
-                {note.body}
-              </p>
-            </article>
-          </Reveal>
-        ))}
+      <div className="grid gap-4 md:grid-cols-3">
+        {pillars.map((pillar, i) => {
+          const Icon = icons[i];
+          return (
+            <Reveal key={pillar.title} delay={i * 80} className="h-full">
+              <article className="card-surface card-hover flex h-full flex-col rounded-2xl border border-border p-6 sm:p-7">
+                <div className="flex items-center justify-between">
+                  <span className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-background text-mark">
+                    <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
+                  </span>
+                  <span className="label text-muted-foreground">{pillar.kicker}</span>
+                </div>
+                <h3 className="mt-8 text-xl font-semibold tracking-tight">
+                  {pillar.title}
+                </h3>
+                <p className="mt-3 flex-1 text-[15px] leading-7 text-muted-foreground">
+                  {pillar.body}
+                </p>
+                <div className="mt-6 flex flex-wrap gap-1.5">
+                  {pillar.tools.map((tool) => (
+                    <Chip key={tool}>{tool}</Chip>
+                  ))}
+                </div>
+              </article>
+            </Reveal>
+          );
+        })}
       </div>
-
-      <Reveal delay={80}>
-        <div className="mt-12 grid gap-8 border-t border-border/70 pt-10 sm:grid-cols-[4rem_1fr] sm:gap-8">
-          <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground">
-            Reach
-          </p>
-          <div className="space-y-8">
-            <p className="text-sm leading-8 text-muted-foreground sm:text-[15px]">
-              {toolkit.join("  ·  ")}
-            </p>
-            <p className="text-sm leading-7 text-muted-foreground">
-              <span className="font-display italic text-foreground">
-                {education.institution}
-              </span>
-              <span className="mx-2 text-border">—</span>
-              {education.city}, {education.startDate}–{education.endDate}
-            </p>
-          </div>
-        </div>
-      </Reveal>
     </section>
   );
 }

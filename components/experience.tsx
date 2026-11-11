@@ -1,88 +1,100 @@
-import { SectionHeader } from "@/components/section-header";
+import { Chip, SectionHeader } from "@/components/section-header";
 import { Reveal } from "@/components/reveal";
-import { education, experience, pathIntro } from "@/lib/data";
+import { education, experience } from "@/lib/data";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-
-const school = {
-  id: "school",
-  city: education.city,
-  startDate: education.startDate,
-  endDate: education.endDate,
-  position: "Computer Science",
-  company: education.institution,
-  summary: "Where the path starts.",
-  href: null as string | null,
-};
+import { ArrowRight, GraduationCap } from "lucide-react";
 
 export function Experience() {
-  const path = [
-    school,
-    ...[...experience].reverse().map((exp) => ({
-      id: exp.id,
-      city: exp.city,
-      startDate: exp.startDate,
-      endDate: exp.endDate,
-      position: exp.position,
-      company: exp.company,
-      summary: exp.summary,
-      href: `/experience/${exp.id}` as string | null,
-    })),
-  ];
-
   return (
-    <section id="path" className="scroll-mt-20 py-16 sm:py-24">
+    <section id="experience" className="scroll-mt-20 py-20 sm:py-28">
       <Reveal>
-        <SectionHeader index="04" title="The path" description={pathIntro} />
+        <SectionHeader
+          index="03"
+          label="Experience"
+          title="Where I've"
+          accent="shipped."
+          description="Two jobs: a founding engineer at a YC startup, and before that an engineer on regulated enterprise software for banks. Both required systems that stay reliable under load."
+        />
       </Reveal>
 
-      <ol className="relative ml-1 space-y-0 border-l border-border/70 sm:ml-2">
-        {path.map((stop, index) => {
-          const inner = (
-            <>
-              <span className="absolute -left-[5px] top-8 h-2.5 w-2.5 bg-mark" />
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 className="font-display text-2xl font-medium italic tracking-tight sm:text-3xl">
-                  {stop.city}
-                </h3>
-                <p className="font-mono text-[11px] tabular-nums tracking-wide text-muted-foreground">
-                  {stop.startDate}–{stop.endDate}
+      <ol className="relative space-y-4">
+        {experience.map((exp, i) => (
+          <Reveal key={exp.id} as="li" delay={i * 80}>
+            <article className="card-surface overflow-hidden rounded-2xl border border-border">
+              <div className="grid md:grid-cols-[15rem_1fr]">
+                <header className="border-b border-border p-6 sm:p-7 md:border-r md:border-b-0">
+                  <p className="label tabular-nums text-mark">
+                    {exp.startDate} — {exp.endDate}
+                  </p>
+                  <h3 className="mt-4 text-2xl font-semibold tracking-tight">
+                    {exp.company}
+                  </h3>
+                  {exp.companyNote && (
+                    <p className="mt-1 text-[13px] text-muted-foreground">
+                      {exp.companyNote}
+                    </p>
+                  )}
+                  <p className="mt-4 text-[13px] text-muted-foreground">{exp.location}</p>
+                </header>
+
+                <div className="p-6 sm:p-7">
+                  <p className="text-[15px] font-medium tracking-tight sm:text-base">
+                    {exp.position}
+                  </p>
+                  <p className="mt-3 max-w-3xl text-[15px] leading-7 text-muted-foreground">
+                    {exp.summary}
+                  </p>
+
+                  <ul className="mt-6 space-y-3">
+                    {exp.highlights.map((h) => (
+                      <li key={h} className="flex gap-3 text-[14.5px] leading-7">
+                        <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-mark" />
+                        <span className="text-foreground/85">{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-7 flex flex-col gap-5 border-t border-border pt-5 sm:flex-row sm:items-end sm:justify-between">
+                    <div className="flex flex-wrap gap-1.5">
+                      {exp.stack.map((s) => (
+                        <Chip key={s}>{s}</Chip>
+                      ))}
+                    </div>
+                    <Link
+                      href={`/experience/${exp.id}`}
+                      className="group inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-foreground"
+                    >
+                      Full story
+                      <ArrowRight
+                        className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                        strokeWidth={1.75}
+                      />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+        ))}
+
+        <Reveal as="li" delay={160}>
+          <div className="flex flex-col gap-3 rounded-2xl border border-dashed border-border px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+            <div className="flex items-center gap-4">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-border bg-background text-muted-foreground">
+                <GraduationCap className="h-[18px] w-[18px]" strokeWidth={1.75} />
+              </span>
+              <div>
+                <p className="text-[15px] font-medium">{education.degree}</p>
+                <p className="text-[13px] text-muted-foreground">
+                  {education.institution}, {education.location}
                 </p>
               </div>
-              <p className="mt-2 text-sm text-foreground sm:text-base">
-                {stop.position}
-                <span className="mx-2 text-border">·</span>
-                <span className="text-muted-foreground">{stop.company}</span>
-              </p>
-              <p className="mt-2 max-w-xl text-sm leading-7 text-muted-foreground">
-                {stop.summary}
-              </p>
-              {stop.href && (
-                <p className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-foreground">
-                  Read
-                  <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-                </p>
-              )}
-            </>
-          );
-
-          return (
-            <Reveal key={stop.id} delay={index * 70}>
-              <li className="relative pl-8 sm:pl-12">
-                {stop.href ? (
-                  <Link
-                    href={stop.href}
-                    className="group block py-8 transition-colors sm:py-10"
-                  >
-                    {inner}
-                  </Link>
-                ) : (
-                  <div className="py-8 sm:py-10">{inner}</div>
-                )}
-              </li>
-            </Reveal>
-          );
-        })}
+            </div>
+            <p className="label tabular-nums text-muted-foreground">
+              {education.startDate} — {education.endDate}
+            </p>
+          </div>
+        </Reveal>
       </ol>
     </section>
   );

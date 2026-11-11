@@ -1,98 +1,307 @@
 export const personalInfo = {
   name: "Abhishek Yadav",
   firstName: "Abhishek",
+  initials: "AY",
   title: "Senior Software Engineer",
   location: "Noida, India",
   email: "abhishekyadav.recs@gmail.com",
   linkedin: "https://linkedin.com/in/abhisheky97",
+  linkedinHandle: "abhisheky97",
   github: "https://github.com/iam-abhishek-yadav",
+  githubHandle: "iam-abhishek-yadav",
 };
 
-export const chapters = [
-  { id: "me", number: "01", label: "Me" },
-  { id: "notes", number: "02", label: "Notes" },
-  { id: "work", number: "03", label: "Systems" },
-  { id: "path", number: "04", label: "Path" },
-  { id: "write", number: "05", label: "Write" },
+export const navLinks = [
+  { id: "about", label: "About" },
+  { id: "platform", label: "Platform" },
+  { id: "experience", label: "Experience" },
+  { id: "work", label: "Work" },
+  { id: "toolkit", label: "Toolkit" },
+  { id: "contact", label: "Contact" },
 ] as const;
 
-export const letter = {
-  kicker: "Noida, India",
-  opening: "I make machines explain themselves.",
-  body: [
-    "Session replay. Agents that drive real browsers. Pipelines that swallow thousands of events a second. That is the work I have spent the last few years inside — not as a specialist on a slice, as the person who had to make the whole thing exist.",
-    "I was the founding engineer at Decipher, a YC-backed observability company. One engineer, sitting with the founders, from the Kafka consumer to the Chrome extension. If it shipped, I probably wrote it. If it broke at 2am, that was me too.",
-    "Before that I was at Smarsh, building export workflows for an archival platform used by financial institutions. Less glamorous than agents. Very real: regulators, audit trails, data that cannot get lost.",
-    "I am strongest when the problem is both product and infrastructure. TypeScript and Python. React and FastAPI. Postgres next to ClickHouse. An LLM next to a retry.",
+export const hero = {
+  eyebrow: "Senior Software Engineer · Founding Engineer at a YC startup",
+  headline: "I build AI products that hold up in",
+  headlineAccent: "production.",
+  intro:
+    "I have 4+ years of shipping software. Most recently I was the founding engineer at Decipher, a YC-backed AI observability and QA automation platform, and for a long stretch its only engineer. I take products from an empty repo to production: event ingestion, data stores, LLM pipelines, browser agents, and the dashboard people use every day.",
+  status: "Based in Noida · Working remotely",
+};
+
+export const stats = [
+  { value: "4+", label: "years shipping production software" },
+  { value: "0→1", label: "as the sole engineer beside the founders" },
+  { value: "1000s", label: "of events per second, ingested" },
+  { value: "Billions", label: "of interactions, queryable in ClickHouse" },
+];
+
+export const pillars = [
+  {
+    kicker: "AI & agents",
+    title: "LLM systems with guardrails",
+    body: "RAG over pgvector, multimodal analysis, and agents that drive real browsers. Each one has structured outputs, an LLM judge, and a recovery path for when the model gets it wrong.",
+    tools: ["OpenAI", "Gemini", "Claude", "Bedrock", "Vercel AI SDK", "LangGraph"],
+  },
+  {
+    kicker: "Data & real-time",
+    title: "Pipelines that keep up",
+    body: "Kafka consumers that ingest thousands of events per second, ClickHouse for billions of rows, Postgres as the source of truth, and Redis-backed SSE that keeps the UI live.",
+    tools: ["Kafka", "ClickHouse", "PostgreSQL", "Redis", "FastAPI", "Azure Event Hubs"],
+  },
+  {
+    kicker: "Product engineering",
+    title: "Interfaces people actually use",
+    body: "Next.js dashboards, a Manifest V3 Chrome extension, a session replay player, and the Slack, GitHub, and Linear integrations that bring the product into a team's daily workflow.",
+    tools: ["Next.js", "React", "TypeScript", "Tailwind", "Chrome MV3", "rrweb"],
+  },
+];
+
+export type PlatformNode = {
+  id: string;
+  name: string;
+  tech: string;
+  detail: string;
+};
+
+export type PlatformLayer = {
+  id: string;
+  label: string;
+  nodes: PlatformNode[];
+};
+
+export const platform: {
+  intro: string;
+  layers: PlatformLayer[];
+} = {
+  intro:
+    "This is Decipher's architecture, broken into its layers. I designed, built, and ran every box. Select one to see what it does.",
+  layers: [
+    {
+      id: "capture",
+      label: "Capture",
+      nodes: [
+        {
+          id: "sdk",
+          name: "Web SDKs",
+          tech: "Sentry · PostHog · rrweb",
+          detail:
+            "Customer apps stream errors, product events, and DOM session replays. We accept the Sentry and PostHog wire formats, so teams can adopt Decipher without changing their code.",
+        },
+        {
+          id: "extension",
+          name: "Recorder extension",
+          tech: "Chrome MV3 · CDP · MediaRecorder",
+          detail:
+            "Runs three capture pipelines in parallel: DOM replay, annotated screenshots per action through CDP, and tab video in an offscreen document. Recordings survive page navigation.",
+        },
+        {
+          id: "webhooks",
+          name: "GitHub webhooks",
+          tech: "PR opened · PR updated",
+          detail:
+            "Opening or updating a pull request triggers QA runs against the preview environment.",
+        },
+      ],
+    },
+    {
+      id: "ingest",
+      label: "Ingest",
+      nodes: [
+        {
+          id: "proxy",
+          name: "Sentry-compatible proxy",
+          tech: "Envelope protocol",
+          detail:
+            "A reverse proxy that speaks Sentry's envelope protocol. It normalizes payloads into one internal event model.",
+        },
+        {
+          id: "kafka",
+          name: "Kafka pipeline",
+          tech: "KafkaJS · Azure Event Hubs",
+          detail:
+            "Carries high-volume SDK traffic at thousands of events per second. Oversized messages are offloaded to Blob storage so they stay within broker limits.",
+        },
+        {
+          id: "upload",
+          name: "Direct upload API",
+          tech: "FastAPI · Pydantic",
+          detail:
+            "A separate HTTP path for screenshots and videos up to 200 MB. Billing quotas are enforced at the edge with a 5-minute plan cache, and events are enriched with GeoIP and user-agent data.",
+        },
+      ],
+    },
+    {
+      id: "store",
+      label: "Store",
+      nodes: [
+        {
+          id: "postgres",
+          name: "PostgreSQL",
+          tech: "System of record · pgvector",
+          detail:
+            "Holds orgs, issues, tests, and runs. It also stores embeddings for semantic retrieval and grounded test generation.",
+        },
+        {
+          id: "clickhouse",
+          name: "ClickHouse",
+          tech: "Analytics",
+          detail:
+            "Stores interaction events for analytics over billions of rows. It powers the dashboard's aggregate views.",
+        },
+        {
+          id: "redis",
+          name: "Redis",
+          tech: "Pub/sub · SSE",
+          detail:
+            "Real-time fan-out. Live QA progress and analysis status stream to the browser over server-sent events.",
+        },
+        {
+          id: "blob",
+          name: "Blob storage",
+          tech: "Azure Blob · GCS",
+          detail: "Stores large replay payloads, screenshots, and videos.",
+        },
+      ],
+    },
+    {
+      id: "intelligence",
+      label: "Intelligence",
+      nodes: [
+        {
+          id: "analysis",
+          name: "Analysis workers",
+          tech: "Multimodal LLMs · Hatchet",
+          detail:
+            "A scheduled pipeline extracts screenshots from sessions, scores severity, clusters related issues, and surfaces UX problems automatically.",
+        },
+        {
+          id: "rag",
+          name: "RAG retrieval",
+          tech: "Embeddings · pgvector",
+          detail:
+            "Grounds test generation and issue scoring in real prior sessions, so the model doesn't have to guess.",
+        },
+        {
+          id: "agent",
+          name: "QA agent",
+          tech: "Playwright · Browserbase · CUA",
+          detail:
+            "Turns recordings into natural-language steps and runs them in remote browsers. It recovers from failures with Gemini Computer Use, then writes Playwright code.",
+        },
+        {
+          id: "judge",
+          name: "LLM-as-judge",
+          tech: "Structured outputs",
+          detail:
+            "Grades each browser step against what was expected, so a run that looks green is actually correct.",
+        },
+      ],
+    },
+    {
+      id: "surface",
+      label: "Surface",
+      nodes: [
+        {
+          id: "dashboard",
+          name: "Dashboard",
+          tech: "Next.js 15 · RBAC · flags",
+          detail:
+            "Combines Postgres for transactional data, ClickHouse for analytics, and SSE for live updates. It includes the replay player with an AI sidebar and the full QA test lifecycle UI.",
+        },
+        {
+          id: "slack",
+          name: "Slack & email",
+          tech: "Slack API · Resend · Gemini",
+          detail:
+            "A rule-based alert engine. Each incident gets one Slack thread that tracks its full lifecycle, and each org gets a daily AI-written digest by email.",
+        },
+        {
+          id: "github",
+          name: "GitHub PR gate",
+          tech: "Check runs",
+          detail:
+            "Posts a pass/fail QA check back to the pull request, which blocks regressions before merge.",
+        },
+        {
+          id: "integrations",
+          name: "Integrations",
+          tech: "Linear · Clerk · Okta · Stripe",
+          detail:
+            "Covers issue sync, SSO, billing, and auth: what a team needs before it can adopt the product.",
+        },
+      ],
+    },
   ],
-  signoff: "Abhishek",
 };
 
-export const fieldNotes = [
-  {
-    title: "The demo is not the product",
-    body: "The retry is. The judge is. The failure a human can actually read. I wrap models in tools, structured outputs, and a next move for when they are wrong.",
-  },
-  {
-    title: "I would rather own the room",
-    body: "Architecture, product calls, on-call. Being the only engineer is not a flex. It is a preference: one throat to choke, including my own.",
-  },
-  {
-    title: "Boring things keep interesting things up",
-    body: "Quotas. Consumer lag. SSE that does not drop. Logs you can grep. The unglamorous bits are why the agents and the replay stay honest.",
-  },
-  {
-    title: "Two databases, on purpose",
-    body: "Postgres when you need a source of truth. ClickHouse when you actually have billions of rows. Kafka when the firehose is real. I pick the dull option that matches the load.",
-  },
-];
-
-export const toolkit = [
-  "TypeScript",
-  "Python",
-  "Next.js",
-  "FastAPI",
-  "PostgreSQL",
-  "ClickHouse",
-  "Kafka",
-  "Redis",
-  "OpenAI / Gemini / Claude / Bedrock",
-  "LangGraph",
-  "Playwright",
-  "RAG + pgvector",
-  "Computer Use",
-  "AWS",
-  "Vercel",
-];
-
-export const contactCopy = {
-  title: "Write to me.",
-  body: "Email is the shortest path. GitHub and LinkedIn if you would rather lurk first.",
+export type Experience = {
+  id: string;
+  company: string;
+  companyNote?: string;
+  position: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  summary: string;
+  highlights: string[];
+  deepDive?: { title: string; body: string }[];
+  stack: string[];
 };
 
-export const experience = [
+export const experience: Experience[] = [
   {
     id: "decipher-founding-engineer",
-    company: "Decipher (YC-backed) · via Virtual Employee",
-    position: "Founding Engineer",
-    location: "Noida",
+    company: "Decipher",
+    companyNote: "YC-backed · via Virtual Employee",
+    position: "Senior Software Engineer / Founding Engineer",
+    location: "Remote · Noida",
     startDate: "2024",
-    endDate: "Now",
-    city: "Noida",
+    endDate: "Present",
     summary:
-      "0→1 with the founders. Session replay, QA agents, and an event pipeline that had to keep up.",
-    intro:
-      "I joined as the founding engineer and stayed the only one for a long stretch. Architecture, AI infra, product, production ops — if it is in the platform, I probably designed it and then on-called it.",
-    description: [
-      "Sole engineer working directly with founders to architect and build an AI-powered observability and QA automation platform from 0→1, owning system architecture, development, AI infrastructure, and production operations.",
-      "Designed and operated a production cloud-native architecture using FastAPI, Pydantic, PostgreSQL, ClickHouse, Kafka, Redis, Vercel, and AWS, supporting analytics over billions of interactions and ingestion at thousands of events/sec.",
-      "Built production-grade multimodal AI and RAG pipelines using OpenAI, Gemini, Anthropic, and AWS Bedrock, with embeddings and pgvector for vision analysis, semantic retrieval, issue scoring, clustering, and grounded test generation.",
-      "Built agentic QA automation using Vercel AI SDK, tool calling, Gemini Computer Use, Playwright, and Browserbase, with structured outputs, LLM-as-judge evaluation, automated recovery, and Playwright code generation.",
-      "Built reliable asynchronous AI workflows with workers, scheduled runs, retries, Redis-backed SSE streaming, GitHub PR gates, and multi-LLM orchestration, integrating with Slack, GitHub, Linear, Clerk, Okta, Stripe, Sentry, and Axiom.",
-      "Owned the system architecture end-to-end: Sentry-compatible reverse proxy, Kafka-based ingestion, PostgreSQL as system of record, ClickHouse for analytics, Redis for real-time pub/sub, and Azure Blob for large replay payloads, running on Azure Container Apps and Vercel.",
-      "Designed the session replay and AI analysis platform: rrweb DOM capture, a Next.js replay player with AI sidebar, and a scheduled analysis cron that extracts screenshots, scores severity, groups issues, and surfaces UX problems automatically.",
-      "Engineered the debugger-app dashboard (Next.js 15 App Router) with a hybrid data architecture: PostgreSQL for transactional data, ClickHouse for aggregated analytics, and live streaming via SSE — plus RBAC, feature flags, and the full QA test lifecycle UI.",
-      "Built the Decipher Recorder Chrome Extension (Manifest V3) with three parallel capture pipelines: DOM session replay via rrweb, annotated action screenshots via CDP, and tab video via MediaRecorder in an offscreen document.",
+      "I am the sole engineer working directly with the founders, and I took an AI observability and QA automation platform from its first commit to production. I own the architecture, the AI infrastructure, product engineering, and on-call.",
+    highlights: [
+      "Designed and operate the cloud-native architecture: FastAPI and Node services, PostgreSQL, ClickHouse, Kafka, and Redis, running on AWS, Azure Container Apps, and Vercel.",
+      "Built ingestion that sustains thousands of events per second and keeps billions of user interactions available for analytics.",
+      "Built multimodal AI and RAG pipelines across OpenAI, Gemini, Anthropic, and AWS Bedrock. They use embeddings and pgvector for vision analysis, semantic retrieval, issue scoring, clustering, and grounded test generation.",
+      "Built agentic QA automation. Tool-calling agents drive real browsers with Playwright and Browserbase, recover with Gemini Computer Use, are graded by an LLM judge, and output Playwright code.",
+      "Made async AI work reliable with workers, scheduled runs, retries, Redis-backed SSE streaming, GitHub PR gates, and orchestration across multiple LLM providers.",
+      "Integrated Slack, GitHub, Linear, Clerk, Okta, Stripe, Sentry, and Axiom.",
+    ],
+    deepDive: [
+      {
+        title: "Session replay & AI analysis",
+        body: "rrweb DOM capture feeds a Next.js replay player with an AI sidebar. A scheduled analysis job extracts screenshots, scores severity, groups related issues, and surfaces UX problems without anyone filing a ticket.",
+      },
+      {
+        title: "The dashboard",
+        body: "A Next.js 15 App Router app with a hybrid data layer: PostgreSQL for transactional data, ClickHouse for aggregated analytics, and SSE for live updates. It also includes RBAC, feature flags, and the full QA test lifecycle UI.",
+      },
+      {
+        title: "Recorder Chrome extension",
+        body: "A Manifest V3 extension that runs three capture pipelines at once: DOM session replay through rrweb, annotated action screenshots through CDP, and tab video through MediaRecorder in an offscreen document.",
+      },
+      {
+        title: "Ingestion architecture",
+        body: "A Sentry-compatible reverse proxy and Kafka handle SDK traffic, while a separate HTTP path takes large uploads. PostgreSQL is the system of record, ClickHouse handles analytics, Redis handles real-time pub/sub, and Azure Blob stores heavy replay payloads.",
+      },
+    ],
+    stack: [
+      "TypeScript",
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "PostgreSQL",
+      "ClickHouse",
+      "Kafka",
+      "Redis",
+      "pgvector",
+      "Playwright",
+      "Browserbase",
+      "Hatchet",
+      "AWS",
+      "Azure",
+      "Vercel",
     ],
   },
   {
@@ -102,127 +311,169 @@ export const experience = [
     location: "Bangalore",
     startDate: "2021",
     endDate: "2023",
-    city: "Bangalore",
     summary:
-      "Enterprise archival for financial institutions. Exports that had to be auditable.",
-    intro:
-      "Two years on a compliance platform where the interesting problem was not a model — it was making bulk extraction reliable enough that a bank would trust it.",
-    description: [
-      "Fullstack engineer on a large-scale enterprise archival and compliance platform serving financial institutions.",
-      "Built export workflows enabling reliable, auditable bulk data extraction for enterprise clients with strict regulatory requirements.",
-      "Integrated application workflows with Kafka-based pipelines supporting real-time and scheduled export orchestration at enterprise scale.",
-      "Improved deployment reliability through Docker containerization and Jenkins CI/CD, reducing environment inconsistencies across teams.",
+      "I worked on an enterprise archival and compliance platform used by financial institutions. The hard requirement was reliability: banks needed bulk exports they could trust and audit.",
+    highlights: [
+      "Built bulk export workflows that let regulated clients extract archived data reliably, with a complete audit trail.",
+      "Connected application workflows to Kafka pipelines for real-time and scheduled export orchestration.",
+      "Containerized services with Docker and moved deployments to Jenkins CI/CD, which reduced environment drift between teams.",
     ],
+    stack: ["Kafka", "Docker", "Jenkins", "CI/CD"],
   },
 ];
 
-export const pathIntro =
-  "Sonbhadra, then Bangalore, then Noida. A government engineering college, then banks, then a YC company where I was the only engineer.";
+export const education = {
+  degree: "B.Tech, Computer Science",
+  institution: "Government Engineering College, Sonbhadra",
+  location: "Uttar Pradesh",
+  startDate: "2017",
+  endDate: "2021",
+};
 
-export const projects = [
+export type Project = {
+  id: string;
+  name: string;
+  kicker: string;
+  featured?: boolean;
+  status?: string;
+  url?: string;
+  oneLiner: string;
+  problem: string;
+  metrics: { value: string; label: string }[];
+  built: string[];
+  stack: string[];
+};
+
+export const projects: Project[] = [
   {
     id: "ai-powered-qa-test-automation-agent",
-    name: "QA agent",
-    label: "Agent",
+    name: "AI QA Agent",
+    kicker: "Agents · Browser automation",
     featured: true,
-    tagline:
-      "Watch a recording, drive a real browser, recover with Computer Use, then write the Playwright.",
-    technologies: [
+    oneLiner:
+      "Watches a Chrome recording, replays it in a real browser, fixes failed steps with Computer Use, and outputs Playwright tests.",
+    problem:
+      "End-to-end tests are expensive to write and break whenever the UI changes. The goal was to turn a recording someone already made into a test that runs on every PR and repairs itself when a selector changes.",
+    metrics: [
+      { value: "Recording → test", label: "steps generated by AI" },
+      { value: "CUA", label: "auto-recovery on failure" },
+      { value: "PR gate", label: "pass/fail check on GitHub" },
+    ],
+    built: [
+      "A test lifecycle engine that converts extension recordings into natural-language steps, validates each one in a remote Browserbase browser, and generates Playwright code.",
+      "Computer Use auto-recovery: when a step fails, a vision model takes over, finds the intended element, and the fix is written back into the test.",
+      "RAG with embeddings and pgvector, which grounds generation in prior sessions, and a step-judge that scores whether each outcome matches what was expected.",
+      "A GitHub PR gate: PR webhooks trigger runs against the preview environment and post a check status back to the PR.",
+      "Live step-by-step progress streamed to the dashboard over Redis-backed SSE, with recurring runs scheduled through Hatchet crons.",
+    ],
+    stack: [
       "Node.js",
       "Playwright",
       "Browserbase",
       "Hatchet",
-      "OpenAI",
-      "AWS Bedrock",
-      "Gemini",
       "Vercel AI SDK",
+      "OpenAI",
+      "Gemini",
+      "AWS Bedrock",
       "PostgreSQL",
-      "Redis",
       "pgvector",
-    ],
-    description: [
-      "End-to-end test lifecycle engine: converts Chrome extension recordings into AI-generated natural-language test steps, validates each step in a real remote browser (Browserbase), applies Computer Use auto-recovery when steps fail, generates Playwright code, and schedules recurring runs via Hatchet crons.",
-      "Built RAG retrieval with embeddings and pgvector so test generation is grounded in prior sessions, plus a step-judge layer that scores whether each browser outcome matches expectations.",
-      "Implemented a GitHub PR gate: webhook on PR open/update triggers QA runs against the preview environment and posts a pass/fail check status back to GitHub.",
-      "Streamed live validation progress to the dashboard via Redis-backed SSE, giving engineers real-time step-by-step visibility during test runs.",
+      "Redis",
     ],
   },
   {
     id: "real-time-event-ingestion-pipeline",
-    name: "Event pipeline",
-    label: "Ingest",
-    tagline:
-      "Thousands of events a second is not a slide. It is a Kafka consumer you have to keep alive.",
-    technologies: [
+    name: "Event Ingestion Pipeline",
+    kicker: "Data · Real-time",
+    oneLiner:
+      "Two ingestion paths, one for thousands of small events per second and one for 200 MB videos, both feeding ClickHouse.",
+    problem:
+      "One endpoint had to accept three SDK formats, high-volume small events, and very large media uploads, while enforcing billing quotas and keeping latency low on the hot path.",
+    metrics: [
+      { value: "1000s/s", label: "events through Kafka" },
+      { value: "200 MB", label: "max direct upload" },
+      { value: "3", label: "SDK formats normalized" },
+    ],
+    built: [
+      "A dual-path architecture: Kafka consumers for SDK traffic and a direct HTTP API for large extension uploads. Oversized Kafka messages are offloaded to Azure Blob.",
+      "Normalization of Sentry envelopes, PostHog events, and Chrome extension payloads into one internal model in PostgreSQL.",
+      "Org-level billing quota enforcement at ingestion time, with a 5-minute plan cache to keep the hot path fast.",
+      "GeoIP and user-agent enrichment, with interaction events streamed to ClickHouse for analytics over billions of rows.",
+    ],
+    stack: [
       "FastAPI",
+      "Pydantic",
       "KafkaJS",
+      "Azure Event Hubs",
       "PostgreSQL",
       "ClickHouse",
       "Azure Blob",
-      "Azure Event Hubs",
       "GCS",
-      "Pydantic",
-    ],
-    description: [
-      "Dual-path ingestion architecture: Kafka consumers for high-volume SDK traffic (thousands of events/sec) and a direct HTTP API for large extension uploads (screenshots, videos up to 200 MB). Azure Blob used to handle oversized Kafka messages that exceed broker limits.",
-      "Normalised three distinct SDK formats (Sentry envelope protocol, PostHog event format, Chrome extension HTTP) into a unified internal model stored in PostgreSQL.",
-      "Built org-level billing quota enforcement at ingestion time with a 5-minute plan cache — prevents over-limit orgs from consuming storage while keeping hot-path latency low.",
-      "Enriched events with GeoIP and user-agent parsing; published interaction events to ClickHouse via Kafka for downstream analytics over billions of rows.",
     ],
   },
   {
     id: "decipher-recorder-chrome-extension",
-    name: "Recorder",
-    label: "Record",
-    tagline:
-      "Three capture pipelines at once, under Manifest V3, without dropping the recording when the tab navigates.",
-    technologies: [
-      "Chrome MV3",
-      "TypeScript",
-      "CDP",
-      "rrweb",
-      "Sentry SDK",
-      "MediaRecorder",
-      "React",
+    name: "Recorder Extension",
+    kicker: "Chrome MV3 · Capture",
+    oneLiner:
+      "Runs three capture pipelines at once under Manifest V3, and keeps recording when the tab navigates.",
+    problem:
+      "Under Manifest V3, service workers can't hold a MediaStream and are shut down whenever the browser decides. We still needed full-fidelity recordings that survive page loads.",
+    metrics: [
+      { value: "3", label: "parallel capture pipelines" },
+      { value: "8", label: "screenshots per action, max" },
+      { value: "MV3", label: "service-worker safe" },
     ],
-    description: [
-      "Three parallel capture pipelines running simultaneously during recording: (1) continuous DOM session replay via injected Sentry/rrweb sent through the Sentry reverse proxy, (2) per-action annotated screenshots via Chrome DevTools Protocol with up to 8 captures per interaction, (3) tab video via MediaRecorder in a hidden offscreen document.",
-      "Solved complex Manifest V3 constraints: used offscreen documents for MediaRecorder (service workers cannot hold MediaStream), declarativeNetRequest for optional CSP header stripping, and background worker state persistence to survive page navigations mid-recording.",
-      "Captures rich action metadata per interaction — CSS selectors, Playwright-compatible selectors, AI descriptions (from pipelines-server), URL, and timestamp — feeding directly into the test generation pipeline.",
+    built: [
+      "Three pipelines running together: continuous DOM replay through rrweb, annotated per-action screenshots through CDP, and tab video through MediaRecorder in an offscreen document.",
+      "Workarounds for MV3 limits: offscreen documents for media, declarativeNetRequest for optional CSP stripping, and persisted worker state so recordings survive navigation.",
+      "Detailed metadata for each action (CSS selectors, Playwright-compatible selectors, AI descriptions, URL, and timestamp) that feeds straight into test generation.",
     ],
+    stack: ["TypeScript", "Chrome MV3", "CDP", "rrweb", "MediaRecorder", "React", "Sentry SDK"],
   },
   {
     id: "alert-notification-service",
-    name: "Alerts",
-    label: "Alert",
-    tagline:
-      "Slack threads that follow the incident, plus a daily AI digest so nobody lives in the firehose.",
-    technologies: [
-      "Node.js",
-      "KafkaJS",
-      "Hatchet",
-      "Gemini",
-      "Resend",
-      "Slack API",
-      "PostgreSQL",
+    name: "Alerting & AI Digest",
+    kicker: "Notifications · LLM summaries",
+    oneLiner:
+      "Each incident gets one Slack thread that follows it to resolution, and each team gets a daily AI-written digest instead of a firehose.",
+    problem:
+      "Too many alerts and teams mute the channel. Too few and they miss real issues. Notifications had to be selective, carry their context, and stay out of the way.",
+    metrics: [
+      { value: "9", label: "event types handled" },
+      { value: "1 thread", label: "per incident lifecycle" },
+      { value: "Daily", label: "Gemini-written digest" },
     ],
-    description: [
-      "Kafka-consumer-driven notification system decoupled from the analysis pipeline — handles nine distinct event types including product issue alerts, QA test failures, smart event detections, CUA fix completions, and test approvals.",
-      "Built a rule-based alert decision engine: filters by URL pattern, user role, error group, severity, and frequency before sending — preventing alert fatigue while ensuring critical issues always surface.",
-      "Implemented Slack thread lifecycle management for QA failures — root message on failure, threaded updates for each lifecycle event (fix attempt, CUA recovery, validation complete), preserving full context in one thread.",
-      "Built a daily AI digest system: Hatchet cron fans out across orgs at 19:00 UTC, gathers 24 hours of issues, generates summaries with Gemini, and delivers via Resend HTML email templates.",
+    built: [
+      "A notification service driven by Kafka consumers and decoupled from analysis. It handles product issues, QA failures, smart detections, CUA fixes, and approvals.",
+      "A rule engine that filters by URL pattern, role, error group, severity, and frequency before anything is sent.",
+      "Slack thread lifecycle: a root message when something fails, then threaded updates for each fix attempt, recovery, and validation.",
+      "A daily digest: a Hatchet cron fans out across orgs, summarizes 24 hours of issues with Gemini, and sends the summary through Resend.",
     ],
+    stack: ["Node.js", "KafkaJS", "Hatchet", "Gemini", "Slack API", "Resend", "PostgreSQL"],
   },
   {
     id: "ship",
     name: "Ship",
-    label: "Side",
-    tagline:
-      "A Linear-shaped task board I am building for myself — kanban, invites, and org-scoped workspaces.",
-    status: "In progress" as const,
+    kicker: "Side project · SaaS",
+    status: "In progress",
     url: "https://ship.builderonline.site/",
-    role: "Full-Stack Developer",
-    technologies: [
+    oneLiner:
+      "A multi-tenant task board inspired by Linear: kanban, invites, roles, and isolated workspaces for each org.",
+    problem:
+      "A project of my own to practice the full SaaS stack end to end: multi-tenancy, my own auth, and a fast, keyboard-friendly UI.",
+    metrics: [
+      { value: "Multi-tenant", label: "org-scoped data model" },
+      { value: "3 roles", label: "Admin · Manager · Member" },
+      { value: "Next 16", label: "React 19 · RSC" },
+    ],
+    built: [
+      "Kanban with drag-and-drop, list views (Active, Backlog, Completed, My Issues), an issue detail overlay, an inbox, and workspace settings.",
+      "An org-scoped data model and APIs that keep tasks, members, and invites isolated per workspace.",
+      "Invite-only auth: custom sessions with bcrypt and httpOnly cookies, CLI bootstrap invites, and role-based member invites.",
+      "Server Components for layout data, TanStack Query on the client, and route handlers that validate with Zod and write in transactions.",
+      "Dockerized Postgres and app deployment with Drizzle migrations and structured logging.",
+    ],
+    stack: [
       "Next.js 16",
       "React 19",
       "TypeScript",
@@ -232,110 +483,62 @@ export const projects = [
       "Zod",
       "Tailwind CSS 4",
       "shadcn/ui",
-      "@dnd-kit",
-      "Resend",
       "Docker",
-    ],
-    description: [
-      "Multi-tenant, Linear-inspired task board where each organization is an isolated workspace. Teams collaborate on issues via kanban/list views, comments, activity history, and in-app notifications, with invite-only signup and role-based admin controls.",
-      "Built core product surfaces: Kanban board (drag-and-drop), list views (Active / Backlog / Completed / My Issues), issue detail overlay, inbox notifications, and workspace settings.",
-      "Designed multi-tenant data model and org-scoped APIs so tasks, members, and invites stay isolated per workspace.",
-      "Implemented invite-only auth: custom sessions (bcrypt + httpOnly cookies), org bootstrap invites (CLI), and member invites with Admin / Manager / Member roles.",
-      "Wired App Router Server Components for layout data loading with client state via TanStack Query + React context providers; REST route handlers with Zod validation and transactional task/activity/notification writes.",
-      "Shipped Dockerized Postgres + app deployment with Drizzle migrations and structured server logging.",
     ],
   },
 ];
 
-export const skills = {
-  languages: ["TypeScript", "JavaScript", "Python", "Go", "HTML/CSS"],
-  frontend: [
-    "React.js",
-    "Next.js 15 (App Router)",
-    "Tailwind CSS",
-    "Zustand",
-    "ShadCN UI / Radix",
-    "rrweb",
-  ],
-  backend: [
-    "Node.js",
-    "Express.js",
-    "FastAPI",
-    "Pydantic",
-    "Drizzle ORM",
-    "SSE",
-    "WebSockets",
-  ],
-  database: [
-    "PostgreSQL",
-    "ClickHouse",
-    "Kafka",
-    "Azure Event Hubs",
-    "Redis",
-    "MongoDB",
-    "Azure Blob",
-    "GCS",
-  ],
-  ai: [
-    "OpenAI",
-    "Google Gemini / Vertex",
-    "Anthropic Claude",
-    "AWS Bedrock",
-    "LangChain",
-    "LangGraph",
-    "Vercel AI SDK",
-    "RAG",
-    "embeddings + pgvector",
-    "tool calling",
-    "structured outputs",
-    "multimodal AI",
-    "Computer Use (CUA)",
-    "LLM-as-judge",
-    "agent orchestration",
-  ],
-  testing: [
-    "Playwright",
-    "Browserbase",
-    "Stagehand",
-    "Chrome Extensions (MV3)",
-    "CDP",
-    "Jest",
-    "Vitest",
-    "Cypress",
-  ],
-  devops: [
-    "Docker",
-    "Kubernetes",
-    "Terraform",
-    "Ansible",
-    "GitHub Actions",
-    "Jenkins",
-    "AWS",
-    "Azure Container Apps",
-    "Vercel",
-  ],
-  observability: [
-    "Sentry",
-    "Axiom",
-    "Hatchet",
-    "Structured logging",
-    "Kafka consumer monitoring",
-  ],
-  integrations: [
-    "Slack API",
-    "GitHub OAuth + Webhooks",
-    "Linear",
-    "Clerk",
-    "Okta OAuth",
-    "Stripe",
-  ],
-};
+export const toolkit: { label: string; items: string[]; wide?: boolean }[] = [
+  {
+    label: "AI & agents",
+    wide: true,
+    items: [
+      "OpenAI",
+      "Gemini / Vertex",
+      "Anthropic Claude",
+      "AWS Bedrock",
+      "Vercel AI SDK",
+      "LangChain",
+      "LangGraph",
+      "RAG",
+      "Embeddings + pgvector",
+      "Tool calling",
+      "Structured outputs",
+      "Multimodal",
+      "Computer Use",
+      "LLM-as-judge",
+      "Agent orchestration",
+    ],
+  },
+  { label: "Languages", items: ["TypeScript", "JavaScript", "Python", "Go"] },
+  {
+    label: "Data & queues",
+    items: ["PostgreSQL", "ClickHouse", "Kafka", "Azure Event Hubs", "Redis", "MongoDB", "Azure Blob"],
+  },
+  {
+    label: "Backend",
+    items: ["Node.js", "Express", "FastAPI", "Pydantic", "Drizzle ORM", "SSE", "WebSockets"],
+  },
+  {
+    label: "Frontend",
+    items: ["React", "Next.js (App Router)", "Tailwind CSS", "Zustand", "shadcn/ui · Radix"],
+  },
+  {
+    label: "Browser & testing",
+    items: ["Playwright", "Browserbase", "Chrome Extensions (MV3)", "CDP", "rrweb"],
+  },
+  {
+    label: "Cloud & DevOps",
+    items: ["AWS", "Azure", "Vercel", "Docker", "Kubernetes", "Terraform", "GitHub Actions", "Jenkins"],
+  },
+  {
+    label: "Observability",
+    items: ["Sentry", "Axiom", "Hatchet", "Structured logging", "Kafka consumer monitoring"],
+  },
+];
 
-export const education = {
-  degree: "Bachelor of Technology - Computer Science",
-  institution: "Government Engineering College, Sonbhadra",
-  location: "Uttar Pradesh",
-  startDate: "2017",
-  endDate: "2021",
-  city: "Sonbhadra",
+export const contact = {
+  title: "Building something hard?",
+  accent: "Let's talk.",
+  body: "I'm happiest on problems that are both product and infrastructure: AI features that need real data pipelines behind them. Email is the fastest way to reach me.",
 };

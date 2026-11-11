@@ -1,41 +1,64 @@
-import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type SectionHeaderProps = {
+  index: string;
+  label: string;
   title: string;
-  index?: string;
+  accent?: string;
   description?: string;
-  action?: ReactNode;
   className?: string;
 };
 
 export function SectionHeader({
-  title,
   index,
+  label,
+  title,
+  accent,
   description,
-  action,
   className,
 }: SectionHeaderProps) {
   return (
     <div className={cn("mb-10 sm:mb-14", className)}>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
-        <div className="max-w-2xl">
-          {index && (
-            <p className="mb-3 font-mono text-[11px] tabular-nums tracking-[0.18em] text-mark">
-              {index}
-            </p>
-          )}
-          <h2 className="font-display text-3xl font-medium italic tracking-tight text-foreground sm:text-4xl md:text-[2.75rem] md:leading-tight">
-            {title}
-          </h2>
-          {description && (
-            <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
-              {description}
-            </p>
-          )}
-        </div>
-        {action && <div className="shrink-0">{action}</div>}
+      <div className="mb-6 flex items-center gap-3">
+        <span className="label tabular-nums text-mark">{index}</span>
+        <span className="label text-muted-foreground">{label}</span>
+        <span className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
       </div>
+      <h2 className="max-w-3xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl md:leading-[1.05]">
+        {title}
+        {accent && (
+          <>
+            {" "}
+            <span className="font-serif font-normal italic text-muted-foreground">
+              {accent}
+            </span>
+          </>
+        )}
+      </h2>
+      {description && (
+        <p className="mt-5 max-w-2xl text-[15px] leading-7 text-muted-foreground text-pretty sm:text-base sm:leading-8">
+          {description}
+        </p>
+      )}
     </div>
+  );
+}
+
+export function Chip({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center rounded-full border border-border bg-background/60 px-2.5 py-1 font-mono text-[11px] leading-none text-muted-foreground",
+        className
+      )}
+    >
+      {children}
+    </span>
   );
 }
