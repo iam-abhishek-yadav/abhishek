@@ -337,6 +337,7 @@ export type Project = {
   featured?: boolean;
   status?: string;
   url?: string;
+  repo?: string;
   oneLiner: string;
   problem: string;
   metrics: { value: string; label: string }[];
@@ -455,23 +456,25 @@ export const projects: Project[] = [
     id: "ship",
     name: "Ship",
     kicker: "Side project · SaaS",
-    status: "In progress",
+    status: "Live",
     url: "https://ship.builderonline.site/",
+    repo: "https://github.com/iam-abhishek-yadav/ship",
     oneLiner:
-      "A multi-tenant task board inspired by Linear: kanban, invites, roles, and isolated workspaces for each org.",
+      "Issue tracking for small teams without the enterprise weight: board, lists, projects, inbox, and isolated team workspaces.",
     problem:
-      "A project of my own to practice the full SaaS stack end to end: multi-tenancy, my own auth, and a fast, keyboard-friendly UI.",
+      "A project of my own to build a full SaaS product end to end: multi-tenancy, my own auth, per-project access control, and a fast, keyboard-friendly UI that a small team can use every day.",
     metrics: [
       { value: "Multi-tenant", label: "org-scoped data model" },
       { value: "3 roles", label: "Admin · Manager · Member" },
-      { value: "Next 16", label: "React 19 · RSC" },
+      { value: "26", label: "Drizzle migrations shipped" },
     ],
     built: [
-      "Kanban with drag-and-drop, list views (Active, Backlog, Completed, My Issues), an issue detail overlay, an inbox, and workspace settings.",
-      "An org-scoped data model and APIs that keep tasks, members, and invites isolated per workspace.",
-      "Invite-only auth: custom sessions with bcrypt and httpOnly cookies, CLI bootstrap invites, and role-based member invites.",
-      "Server Components for layout data, TanStack Query on the client, and route handlers that validate with Zod and write in transactions.",
-      "Dockerized Postgres and app deployment with Drizzle migrations and structured logging.",
+      "A kanban board with drag-and-drop reordering, list views (Active, Backlog, Completed, My issues), and an issue detail view with properties, labels, due dates, and a full activity history.",
+      "Projects that group issues, with member access, access requests, and project-scoped boards and lists.",
+      "An inbox for assignments, @mentions in comments, and status changes, plus a command palette and global search.",
+      "Share for passing code snippets to teammates with syntax highlighting (Shiki), and My productivity for tracking personal goals beside team work.",
+      "My own auth: bcrypt sessions in httpOnly cookies, invite-based member onboarding, password reset over Resend, rate limiting, and org boundaries enforced in every query.",
+      "Server Components for the app shell, TanStack Query and Zustand on the client, Zod-validated route handlers, and a Docker build that runs migrations on startup.",
     ],
     stack: [
       "Next.js 16",
@@ -480,11 +483,39 @@ export const projects: Project[] = [
       "PostgreSQL",
       "Drizzle ORM",
       "TanStack Query",
+      "Zustand",
       "Zod",
+      "dnd-kit",
+      "Shiki",
+      "Resend",
       "Tailwind CSS 4",
       "shadcn/ui",
       "Docker",
     ],
+  },
+  {
+    id: "tools",
+    name: "tool.",
+    kicker: "Side project · Browser utilities",
+    status: "Live",
+    url: "https://tools.builderonline.site/",
+    oneLiner:
+      "45 free file tools for PDFs, images, code, and text that run entirely in the browser, so nothing is uploaded.",
+    problem:
+      "Most free PDF and image sites make you upload private files to their servers, then add sign-ups, limits, or watermarks. I wanted the same everyday tools with none of that: everything runs on the device.",
+    metrics: [
+      { value: "45", label: "tools across 4 toolkits" },
+      { value: "0 uploads", label: "all processing in the browser" },
+      { value: "No sign-up", label: "no accounts, no watermarks" },
+    ],
+    built: [
+      "PDF toolkit (25 tools): merge, split, compress, sign, Word to PDF, PDF to images, and more conversions, all done locally.",
+      "Image toolkit (9 tools): compress, resize, crop, and convert to JPG, PNG, or WebP, make GIFs and stickers, and remove backgrounds with an on-device AI model.",
+      "Developer toolkit (8 tools): JSON formatter with clear errors, JWT decoder, hash generator, Base64, UUIDs, and other helpers, generated locally.",
+      "Text toolkit (3 tools): word counter with reading time, case converter, and text diff.",
+      "Compression that keeps the original when it can't make a file smaller, so users never end up with a worse file.",
+    ],
+    stack: ["In-browser processing", "On-device AI"],
   },
 ];
 

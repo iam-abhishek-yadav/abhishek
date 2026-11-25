@@ -121,6 +121,20 @@ export default async function ProjectDetailPage({
               />
             </a>
           )}
+          {project.repo && (
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between rounded-2xl border border-border px-5 py-4 text-sm font-medium transition-colors hover:bg-muted"
+            >
+              View source on GitHub
+              <ArrowUpRight
+                className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                strokeWidth={2}
+              />
+            </a>
+          )}
         </aside>
       </div>
 
